@@ -1,0 +1,27 @@
+.NavTab {
+    padding: 24px 0;
+    background-color: var(--signal-black);
+}
+
+.NavTab__list {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    list-style: none;
+    width: 276px;
+}
+
+.NavTab__link {
+    color: var(--default-white);
+    text-decoration: underline;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+
+@media (min-width:320px) and (max-width: 425px)  {
+    .NavTab__list {
+        width: 214px;
+    }
+}
