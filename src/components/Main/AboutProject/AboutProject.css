@@ -14,6 +14,7 @@
     padding-bottom: 23px;
     border-bottom: 1px solid var(--border-grey);
     letter-spacing: -0.04em;
+    font-weight: normal;
 }
 
 .AboutProject__stages-wrapper {
@@ -43,6 +44,57 @@
     margin-top: 26px;
 }
 
-.AboutProject__progress-bar {
+.AboutProject__progressBar {
     flex-grow: 1;
 }
+
+.AboutProject__progressBar {
+    margin-top: 110px;
+    height: 36px;
+    display: flex;
+}
+
+
+.AboutProject__progressBarItem {
+    padding: 10px 0;
+    font-size: 14px;
+    line-height: 17px;
+}
+.AboutProject__progressBarText {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    position: relative;
+}
+
+.AboutProject__progressBarItem_backend {
+    background-color: var(--toxic-green);
+    flex-basis: 228px;
+    color: #303030;
+}
+
+.AboutProject__progressBarItem_frontend {
+    background-color: #303030;
+    color: #FFFFFF;
+    flex-grow: 1;
+
+}
+
+.AboutProject__progressBarItem_backend .AboutProject__progressBarText:after {
+    position: absolute;
+    content: "Back-end";
+    display: block;
+    top: 50px;
+    color: #8B8B8B;
+    white-space: nowrap;
+}
+
+.AboutProject__progressBarItem_frontend .AboutProject__progressBarText:after {
+    position: absolute;
+    display: block;
+    content: "Front-end";
+    top: 50px;
+    color: #8B8B8B;
+    white-space: nowrap;
+}
+

@@ -1,4 +1,5 @@
 import React from "react";
+import "./AboutMe.css";
 
 function AboutMe() {
   return (
@@ -14,6 +15,7 @@ function AboutMe() {
           После того, как прошёл курс по веб-разработке, начал заниматься
           фриланс-заказами и ушёл с постоянной работы.
         </p>
+          <img src="" alt="" className="AboutMe__photo"/>
           <ul className="AboutMe__contacts-list">
               <li className="AboutMe__contacts-item"><a className="AboutMe__link_contact" href="#">Facebook</a></li>
               <li className="AboutMe__contacts-item"><a className="AboutMe__link_contact" href="#">Github</a></li>

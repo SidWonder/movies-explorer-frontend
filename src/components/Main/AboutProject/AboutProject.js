@@ -15,18 +15,10 @@ function AboutProject() {
                     <p className="AboutProject__stageSubtext">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
                 </div>
             </div>
-                <div className="AboutProject__progress-bar">
-                    <span className="AboutProject__progress-bar-item">1 неделя</span>
-                    <span className="AboutProject__progress-bar-item">4 недели</span>
+                <div className="AboutProject__progressBar">
+                    <span className="AboutProject__progressBarItem AboutProject__progressBarItem_backend"><p className="AboutProject__progressBarText">1 неделя</p></span>
+                    <span className="AboutProject__progressBarItem AboutProject__progressBarItem_frontend"><p className="AboutProject__progressBarText">4 недели</p></span>
                 </div>
-
-
-            <h4 className="AboutMe__subtitle">Портфолио</h4>
-            <ul className="AboutMe__portfolio-list">
-                <li className="AboutMe__portfolio-item"><a className="AboutMe__link_portfolio" href="#">Статичный сайт</a></li>
-                <li className="AboutMe__portfolio-item"><a className="AboutMe__link_portfolio" href="#">Адаптивный сайт</a></li>
-                <li className="AboutMe__portfolio-item"><a className="AboutMe__link_portfolio" href="#">Одностраничное приложение</a></li>
-            </ul>
         </section>
     );
 }

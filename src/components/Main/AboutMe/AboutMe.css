@@ -1,0 +1,83 @@
+.AboutMe {
+    background-color: #202020;
+    padding: 110px 70px 125px 70px;
+}
+
+.AboutMe__title {
+    color: var(--default-white);
+    text-align: left;
+    /*display: inline-block;*/
+    margin: 0;
+    padding: 0;
+    font-size: 22px;
+    line-height: 27px;
+    padding-bottom: 23px;
+    border-bottom: 1px solid var(--border-grey);
+    letter-spacing: -0.04em;
+    font-weight: normal;
+}
+
+.AboutMe__text-wrapper {
+    margin-top: 66px;
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: 600px;
+    grid-template-areas:
+            "name  photo"
+            "prof photo"
+            "bio photo"
+            "cont photo"
+;
+}
+
+.AboutMe__name {
+    text-align: left;
+    margin: 0;
+    grid-area: name;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+    height: 58px;
+
+    /*grid-template-columns: none;*/
+}
+.AboutMe__profession {
+    text-align: left;
+    margin: 0;
+    grid-area: prof;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    color: #FFFFFF;
+    mix-blend-mode: normal;
+    height: 20px;
+}
+
+.AboutMe__bio {
+    text-align: left;
+    margin: 0;
+    grid-area: bio;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: #FFFFFF;
+}
+
+.AboutMe__photo {
+    grid-area: photo;
+    width: 270px;
+    height: 327px;
+    background-color: red;
+    border-radius: 10px;
+}
+
+.AboutMe__contacts-list {
+    /*align-self: flex-end;*/
+    justify-self: flex-start;
+    margin: 0;
+    padding: 0;
+    grid-area: cont;
+    list-style: none;
+}
