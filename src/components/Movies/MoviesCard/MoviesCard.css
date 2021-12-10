@@ -1,0 +1,66 @@
+.MoviesCard {
+    background-color: #222222;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    width: 360px;
+    height: 320px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.MoviesCard:nth-child(n+4){
+    /*background-color: red;*/
+    margin-top: 32px;
+}
+
+.MoviesCard__title {
+    box-sizing: border-box;
+    padding: 18px 0 0 18px;
+    /*height: 18px;*/
+    margin: 0;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #FFFFFF;
+}
+
+.MoviesCard__length {
+    padding: 18px 18px 0 0;
+    /*height: 18px;*/
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 18px;
+    color: #8B8B8B;
+    margin: 0;
+}
+
+.MoviesCard__image {
+    flex-grow: 1;
+    height: 200px;
+    object-fit: contain;
+}
+
+.MoviesCard__button {
+    width: 100px;
+    height: 29px;
+    margin: 0 auto;
+    background: #313131;
+    border-radius: 30px;
+    border: none;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 11px;
+}
+
+.MoviesCard__button_inFavorite {
+    background: #EE3465;
+    background-image: url("../../../images/icons/movie__inFavorite.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.MoviesCard__button:hover {
+    cursor: pointer;
+    opacity: 0.3;
+}

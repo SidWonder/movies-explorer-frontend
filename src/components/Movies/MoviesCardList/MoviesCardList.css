@@ -1,0 +1,8 @@
+.MoviesCardList {
+    background-color: #202020;
+    /*background-color: #fff;*/
+    padding: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

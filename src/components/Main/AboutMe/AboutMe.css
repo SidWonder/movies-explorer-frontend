@@ -22,6 +22,8 @@
     display: grid;
     justify-content: space-between;
     grid-template-columns: 600px;
+    /*grid-template-rows: 58px 20px 88px 1fr;*/
+    grid-template-rows: auto auto auto 1fr;
     grid-template-areas:
             "name  photo"
             "prof photo"
@@ -33,15 +35,15 @@
 .AboutMe__name {
     text-align: left;
     margin: 0;
+    row-gap: 18px;
     grid-area: name;
     font-weight: normal;
     font-size: 50px;
     line-height: 58px;
     letter-spacing: -0.04em;
     color: #FFFFFF;
-    height: 58px;
+    padding-bottom: 18px;
 
-    /*grid-template-columns: none;*/
 }
 .AboutMe__profession {
     text-align: left;
@@ -53,6 +55,7 @@
     color: #FFFFFF;
     mix-blend-mode: normal;
     height: 20px;
+    padding-bottom: 26px;
 }
 
 .AboutMe__bio {
@@ -76,8 +79,20 @@
 .AboutMe__contacts-list {
     /*align-self: flex-end;*/
     justify-self: flex-start;
+    align-self: flex-end;
     margin: 0;
     padding: 0;
     grid-area: cont;
     list-style: none;
+    display: flex;
+}
+.AboutMe__contacts-item:first-child {
+    margin-right: 20px;
+}
+.AboutMe__link_contact {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
 }

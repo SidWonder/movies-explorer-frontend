@@ -1,5 +1,6 @@
 import React from "react";
 import "./AboutMe.css";
+import Portfolio from "../Portfolio/Portfolio";
 
 function AboutMe() {
   return (
@@ -22,12 +23,7 @@ function AboutMe() {
           </ul>
       </div>
 
-        <h4 className="AboutMe__subtitle">Портфолио</h4>
-        <ul className="AboutMe__portfolio-list">
-            <li className="AboutMe__portfolio-item"><a className="AboutMe__link_portfolio" href="#">Статичный сайт</a></li>
-            <li className="AboutMe__portfolio-item"><a className="AboutMe__link_portfolio" href="#">Адаптивный сайт</a></li>
-            <li className="AboutMe__portfolio-item"><a className="AboutMe__link_portfolio" href="#">Одностраничное приложение</a></li>
-        </ul>
+        <Portfolio />
     </section>
   );
 }
