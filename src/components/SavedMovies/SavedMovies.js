@@ -1,11 +1,9 @@
 import React from "react";
-import './Movies.css';
+import "./SavedMovies.css";
+import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
+import MoviesCard from "../Movies/MoviesCard/MoviesCard";
 
-import SearchForm from "./SearchForm/SearchForm";
-import MoviesCardList from "./MoviesCardList/MoviesCardList";
-
-function Movies() {
-
+function SavedMovies() {
     const [cards, setCards] = React.useState([
         {
             movieName:"В погоне за Бенкси",
@@ -54,13 +52,9 @@ function Movies() {
 
 
     ]);
-
     return (
-        <section className="Movies">
-            <SearchForm />
-            <MoviesCardList cards={cards} pageType={'allMovies'} />
-        </section>
-    );
+        <MoviesCardList cards={cards} pageType={'favorites'}/>
+    )
 }
 
-export default Movies;
+export default SavedMovies

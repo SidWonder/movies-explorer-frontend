@@ -2,7 +2,9 @@
     background-color: #202020;
     /*background-color: #fff;*/
     padding: 70px;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 360px));
+    grid-column-gap: 28px;
+    grid-row-gap: 32px;
     flex-wrap: wrap;
-    justify-content: space-between;
 }

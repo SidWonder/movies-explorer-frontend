@@ -1,17 +1,30 @@
 .SearchForm {
     display: flex;
+    position: relative;
     align-items: center;
     padding: 80px 70px;
     background-color: #202020;
+    /*padding-bottom: 83px;*/
 }
 .SearchForm__input::placeholder{
     color: #8B8B8B;
+}
+
+.SearchForm:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    width: 90.5%;
+    height: 1px;
+    background: #AAAAAA;
+    opacity: 0.2;
 }
 
 .SearchForm__label {
     flex-grow: 1;
     position: relative;
     margin-right: 41px;
+    /*padding-bottom: 83px;*/
 }
 .SearchForm__input {
     width: 100%;

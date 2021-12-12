@@ -3,81 +3,30 @@ import "./MoviesCardList.css";
 
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList() {
+function MoviesCardList({cards, pageType}) {
     return (
         <section className="MoviesCardList">
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={true}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={false}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={true}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={false}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={true}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={false}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={true}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={false}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={true}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={false}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={true}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
-            <MoviesCard
-                movieName="В погоне за Бенкси"
-                movieLength="27"
-                movieInFavorite={false}
-                movieCover="https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-            />
+        { pageType === 'allMovies' &&
+                cards.map(x => {
+                        return (
+                    <MoviesCard movieName={x.movieName}
+                                movieLength={x.movieLength}
+                                movieCover={x.movieCover}
+                                movieInFavorite={x.movieInFavorite}
+                                type={pageType}
+                                />
+                )})
+        }
+        {pageType === 'favorites' && cards.filter(y=> y.movieInFavorite).map(x => {
+                return (
+                    <MoviesCard movieName={x.movieName}
+                                movieLength={x.movieLength}
+                                movieCover={x.movieCover}
+                                movieInFavorite={x.movieInFavorite}
+                                type={pageType}
+                    />
+                )})}
+
         </section>
     )
 }
