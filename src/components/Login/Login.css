@@ -1,6 +1,7 @@
 .Login{
     background-color: #202020;
-    height: 100vh;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
 .Login__title {
@@ -85,4 +86,34 @@
 
 .Login__link:hover {
     opacity: 0.3;
+}
+
+@media (min-width:320px) and (max-width: 767px) {
+    .Login {
+
+        padding: 0 30px 30px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        /*justify-content: space-between;*/
+    }
+
+    .Login__form {
+        justify-self: center;
+        width: 100%;
+        margin: 0;
+        flex: 1 1 auto;
+    }
+
+    .Login__button {
+        margin-top: auto;
+    }
+
+    .Login__label:nth-child(2){
+        margin-top: 80px;
+    }
+
+    .Login__title {
+        text-align: center;
+    }
 }

@@ -21,7 +21,16 @@
 
 
 @media (min-width:320px) and (max-width: 425px)  {
+    .NavTab {
+        padding: 25px 53px;
+    }
     .NavTab__list {
         width: 214px;
+        padding: 0;
+    }
+
+    .NavTab__link {
+        font-size: 11px;
+        line-height: 16px;
     }
 }

@@ -59,6 +59,8 @@
     padding: 10px 0;
     font-size: 14px;
     line-height: 17px;
+    justify-content: center;
+    display: flex;
 }
 .AboutProject__progressBarText {
     padding: 0;
@@ -98,3 +100,53 @@
     white-space: nowrap;
 }
 
+@media (min-width:320px) and (max-width: 767px) {
+    .AboutProject {
+        padding: 70px 18px;
+    }
+
+    .AboutProject__title {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .AboutProject__stages-wrapper {
+        flex-direction: column;
+        margin-top: 60px;
+    }
+
+    .AboutProject__stage {
+        width: 100%;
+    }
+
+    .AboutProject__stageText {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .AboutProject__stageSubtext {
+        font-size: 11px;
+        line-height: 16px;
+    }
+    .AboutProject__stage:last-child {
+        margin-top: 56px;
+    }
+    .AboutProject__progressBar {
+        margin-top: 60px;
+    }
+    .AboutProject__progressBarItem_backend {
+        flex-basis: 100px;
+    }
+
+    .AboutProject__progressBarText {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .AboutProject__progressBarItem_backend .AboutProject__progressBarText:after {
+        top:40px
+    }
+
+    .AboutProject__progressBarItem_frontend .AboutProject__progressBarText:after {
+        top:40px
+    }
+
+}

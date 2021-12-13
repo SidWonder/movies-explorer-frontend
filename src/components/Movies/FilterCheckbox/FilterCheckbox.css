@@ -51,3 +51,9 @@
 .FilterCheckbox__input:checked + .FilterCheckbox__slider:before  {
     transform: translateX(15px);
 }
+
+@media (min-width:320px) and (max-width: 767px) {
+    .FilterCheckbox {
+        margin-top: 45px;
+    }
+}

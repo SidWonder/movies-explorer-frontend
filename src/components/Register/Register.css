@@ -1,6 +1,7 @@
 .Register {
     background-color: #202020;
     height: 100vh;
+    box-sizing: border-box;
 }
 
 .Register__title {
@@ -85,4 +86,34 @@
 
 .Register__link:hover {
     opacity: 0.3;
+}
+
+@media (min-width:320px) and (max-width: 767px) {
+    .Register {
+
+        padding: 0 30px 30px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        /*justify-content: space-between;*/
+    }
+
+    .Register__form {
+        justify-self: center;
+        width: 100%;
+        margin: 0;
+        flex: 1 1 auto;
+    }
+
+    .Register__button {
+        margin-top: auto;
+    }
+
+    .Register__label:nth-child(2){
+        margin-top: 80px;
+    }
+
+    .Register__title {
+        text-align: center;
+    }
 }

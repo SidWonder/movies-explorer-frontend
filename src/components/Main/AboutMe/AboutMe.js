@@ -4,19 +4,17 @@ import Portfolio from "../Portfolio/Portfolio";
 
 function AboutMe() {
   return (
-    <section className="AboutMe">
+    <section id="AboutMe" className="AboutMe">
       <h3 className="AboutMe__title">Студент</h3>
       <div className="AboutMe__text-wrapper">
         <p className="AboutMe__name">Олег</p>
         <p className="AboutMe__profession">Фронтенд-разработчик, 27 лет</p>
         <p className="AboutMe__bio">
-          Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня
-          есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом.
-          Недавно начал кодить. С 2015 года работал в компании «СКБ Контур».
-          После того, как прошёл курс по веб-разработке, начал заниматься
-          фриланс-заказами и ушёл с постоянной работы.
+          Я родился в 94 ом на краю города
+          Фронтенд поздно ударил в голову в 25 активно верстал неправильно
+          В Практикуме девочки впервые показали мне ООП .
         </p>
-          <img src="" alt="" className="AboutMe__photo"/>
+          <img src="https://sun9-23.userapi.com/impg/wSiudxrs3U0RZGY0Yha-ztwmQiKZXUjpTdBOtA/L0eA0KILgNc.jpg?size=848x1280&quality=95&sign=ae2d8d8af705969c777ffabfacd304b0&type=album" alt="Фото красавца" className="AboutMe__photo"/>
           <ul className="AboutMe__contacts-list">
               <li className="AboutMe__contacts-item"><a className="AboutMe__link_contact" href="#">Facebook</a></li>
               <li className="AboutMe__contacts-item"><a className="AboutMe__link_contact" href="#">Github</a></li>

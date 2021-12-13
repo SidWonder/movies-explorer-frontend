@@ -3,6 +3,7 @@ import './Movies.css';
 
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
+import Header from "../Header/Header";
 
 function Movies() {
 
@@ -57,6 +58,7 @@ function Movies() {
 
     return (
         <section className="Movies">
+            <Header pageType={'movies'}/>
             <SearchForm />
             <MoviesCardList cards={cards} pageType={'allMovies'} />
         </section>

@@ -47,3 +47,15 @@
     cursor: pointer;
     opacity: 0.3;
 }
+
+@media (min-width:320px) and (max-width: 767px) {
+    .Portfolio__title {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .Portfolio__link {
+        font-size: 18px;
+        line-height: 28px;
+    }
+}

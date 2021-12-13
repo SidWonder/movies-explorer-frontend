@@ -7,23 +7,25 @@ function MoviesCardList({cards, pageType}) {
     return (
         <section className="MoviesCardList">
         { pageType === 'allMovies' &&
-                cards.map(x => {
+                cards.map((x, i) => {
                         return (
                     <MoviesCard movieName={x.movieName}
                                 movieLength={x.movieLength}
                                 movieCover={x.movieCover}
                                 movieInFavorite={x.movieInFavorite}
                                 type={pageType}
+                                key={i}
                                 />
                 )})
         }
-        {pageType === 'favorites' && cards.filter(y=> y.movieInFavorite).map(x => {
+        {pageType === 'favorites' && cards.filter(y=> y.movieInFavorite).map((x, i) => {
                 return (
                     <MoviesCard movieName={x.movieName}
                                 movieLength={x.movieLength}
                                 movieCover={x.movieCover}
                                 movieInFavorite={x.movieInFavorite}
                                 type={pageType}
+                                key={i}
                     />
                 )})}
 

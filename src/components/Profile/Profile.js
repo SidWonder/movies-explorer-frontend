@@ -1,28 +1,26 @@
 import React from "react";
 import './Profile.css';
+import Header from "../Header/Header";
 
 function Profile() {
     return (
+        <>
+        <Header pageType={'profile'}/>
         <section className="Profile">
-            <form action="" className="Profile__form">
-                <h1 className="Profile__title">Привет, Виталий!</h1>
-                <label className="Profile__label Profile__label_name">
-                    <input
-                        type="text"
-                        className="Profile__input"
-                        name="name"/>
-                </label>
-                <label className="Profile__label  Profile__label_email">
-                    <input
-                        name="email"
-                        type="email"
-                        className="Profile__input"/>
-                </label>
-                <button type="submit" className="Profile__button">Зарегистрироваться</button>
-                <a href="#" className="Profile__link">Выйти из аккаунта</a>
-            </form>
 
+                <h1 className="Profile__title">Привет, Виталий!</h1>
+            <div className="Profile__textContainer">
+                <p className="Profile__text">Имя</p>
+                <p  id='Profile__name' className="Profile__text">Виталя</p>
+            </div>
+            <div className="Profile__textContainer">
+                <p className="Profile__text">E-mail</p>
+                <p id='Profile__email' className="Profile__text">pochta@yandex.ru</p>
+            </div>
+            <button className="Profile__button Profile__button_registration">Редактировать</button>
+            <button className="Profile__button Profile__button_logout">Выйти из аккаунта</button>
         </section>
+        </>
     );
 }
 

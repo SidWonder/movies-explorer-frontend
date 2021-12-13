@@ -1,9 +1,12 @@
 import React from "react";
 import './Login.css';
+import Header from "../Header/Header";
+import {Link} from "react-router-dom";
 
 function Login() {
     return (
         <section className="Login">
+            <Header pageType={'login'}/>
             <form action="" className="Login__form">
                 <h1 className="Login__title">Рады видеть!</h1>
                 <label className="Login__label">
@@ -20,7 +23,7 @@ function Login() {
                         className="Login__input"/>
                 </label>
                 <button type="submit" className="Login__button">Войти</button>
-                <p className="Login__text">Уже зарегистрированы? <a href="#" className="Login__link">Регистрация</a></p>
+                <p className="Login__text">Ещё не зарегистрированы? <Link to="/signup" className="Login__link">Регистрация</Link></p>
             </form>
 
         </section>

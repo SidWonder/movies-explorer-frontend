@@ -58,3 +58,14 @@
     cursor: pointer;
     opacity: 0.3;
 }
+
+@media (min-width:320px) and (max-width: 767px) {
+    .SearchForm {
+        flex-direction: column;
+        padding: 60px 10px;
+    }
+    .SearchForm__label {
+        margin-right: 0;
+        width: 100%;
+    }
+}

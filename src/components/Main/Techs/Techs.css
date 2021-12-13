@@ -63,3 +63,36 @@
     text-align: center;
     letter-spacing: -0.04em;
 }
+
+@media (min-width:320px) and (max-width: 767px) {
+
+    .Techs {
+        padding: 70px 18px;
+        background-color: #202020;
+    }
+    .Techs__header {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .Techs__title {
+        font-size: 30px;
+        line-height: 36px;
+    }
+    .Techs__subtitle {
+        font-size: 11px;
+        line-height: 16px;
+    }
+    .Techs__list {
+        width: 180px;
+        flex-wrap: wrap;
+        margin-top: 50px;
+        height: 100%;
+    }
+    .Techs__listItem {
+        width: 84px;
+    }
+
+    .Techs__listItem:nth-child(n+3) {
+        margin-top: 10px;
+    }
+}

@@ -8,3 +8,15 @@
     grid-row-gap: 32px;
     flex-wrap: wrap;
 }
+
+
+@media (min-width:320px) and (max-width: 767px) {
+    .MoviesCardList{
+        grid-template-columns: 1fr;
+        padding: 40px 10px;
+        grid-column-gap: 0;
+        grid-row-gap: 32px;
+    }
+
+
+}

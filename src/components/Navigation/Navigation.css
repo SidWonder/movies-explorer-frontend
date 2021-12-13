@@ -1,0 +1,161 @@
+.Navigation {
+    box-sizing: border-box;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    padding: 18px 70px;
+}
+
+.Navigation__main {
+    background-color: #073042;
+}
+
+.Navigation__movies {
+    background-color:  #202020;
+}
+.Navigation__savedMovies {
+    background-color:  #202020;
+}
+
+.Navigation__login {
+    background-color:  #202020;
+    width: 396px;
+    margin: 0 auto;
+    padding: 70px 0 40px 0;
+}
+
+.Navigation__register {
+    background-color:  #202020;
+    width: 396px;
+    margin: 0 auto;
+    padding: 70px 0 40px 0;
+}
+
+
+.Navigation__profile {
+    background-color:  #202020;
+}
+.Navigation__link_logo {
+    display: block;
+    width: 38px;
+    height: 38px;
+    background-image: url('../../images/icons/icon_logo.svg');
+}
+
+.Navigation__link_auth_active {
+    border-radius: 3px;
+    background-color: var(--toxic-green);
+    padding: 8px 20px;
+}
+
+.Navigation__link:hover {
+    cursor: pointer;
+}
+
+.Navigation__listItem:first-child{
+    margin-right: auto;
+}
+
+.Navigation__link {
+    color: var(--default-white);
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+
+.Navigation__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.Navigation__listItem:hover {
+    opacity: 0.3;
+}
+
+.Navigation__listItem__registration {
+    margin-right: 30px;
+}
+
+.Navigation__link_movies {
+    margin-right: 20px;
+}
+
+.Navigation__link_savedMovies {
+    margin-right: 50px;
+}
+.Navigation__listItem:last-child {
+    width: 100px;
+}
+.Navigation__link_account {
+    text-align: left;
+    position: relative;
+}
+
+.Navigation__link_account:after {
+    position: absolute;
+    content: "";
+    width: 26px;
+    height: 30px;
+    background: url("../../images/icons/profile__icon.svg");
+    left: 80px;
+    top: -6px;
+}
+
+
+@media (min-width:320px) and (max-width: 767px) {
+    .Navigation {
+        padding: 18px 14px;
+    }
+
+    .Navigation__link {
+        font-size: 10px;
+        line-height: 16px;
+    }
+
+    .Navigation__listItem:last-child {
+        width: 70px;
+        /*display: block;*/
+    }
+
+    .Navigation__login {
+        width: 100%;
+        padding: 56px 0 50px 0;
+    }
+
+    .Navigation__login .Navigation__list {
+        flex-grow: 1;
+        justify-content: center;
+    }
+
+    .Navigation__login .Navigation__list .Navigation__listItem:first-child {
+        margin-right: 0;
+    }
+
+    .Navigation__login .Navigation__list .Navigation__listItem:last-child {
+        width: 38px;
+    }
+
+    .Navigation__register {
+        width: 100%;
+        padding: 56px 0 50px 0;
+    }
+
+    .Navigation__register .Navigation__list {
+        flex-grow: 1;
+        justify-content: center;
+    }
+
+    .Navigation__register .Navigation__list .Navigation__listItem:first-child {
+        margin-right: 0;
+    }
+
+    .Navigation__register .Navigation__list .Navigation__listItem:last-child {
+        width: 38px;
+    }
+}

@@ -72,12 +72,12 @@
     grid-area: photo;
     width: 270px;
     height: 327px;
-    background-color: red;
     border-radius: 10px;
+    object-fit: cover;
+
 }
 
 .AboutMe__contacts-list {
-    /*align-self: flex-end;*/
     justify-self: flex-start;
     align-self: flex-end;
     margin: 0;
@@ -95,4 +95,54 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
+}
+
+@media (min-width:320px) and (max-width: 767px) {
+
+    .AboutMe {
+        padding: 70px 14px;
+    }
+    .AboutMe__text-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+            "photo"
+            "name"
+            "prof"
+            "bio"
+            "cont"
+    ;
+    }
+    .AboutMe__photo {
+        min-width: 292px;
+    }
+    .AboutMe__name {
+        font-weight: normal;
+        font-size: 30px;
+        line-height: 36px;
+        letter-spacing: -0.04em;
+        margin-top: 40px;
+        padding-bottom: 0;
+    }
+    .AboutMe__profession {
+        font-size: 11px;
+        line-height: 16px;
+        margin-top: 20px;
+        padding-bottom: 0;
+    }
+
+    .AboutMe__bio {
+        font-size: 11px;
+        line-height: 16px;
+        margin-top: 20px;
+    }
+
+    .AboutMe__link_contact {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .AboutMe__contacts-list{
+        margin-top: 40px;
+    }
 }

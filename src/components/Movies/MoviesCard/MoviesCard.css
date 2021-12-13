@@ -72,3 +72,24 @@
 .MoviesCard__button_inFavoriteList {
     background: #313131 url("../../../images/icons/movie__removeFromFavorite.svg") no-repeat center;
 }
+
+@media (min-width:320px) and (max-width: 767px) {
+    .MoviesCard {
+        width: 300px;
+    }
+
+    .MoviesCard__title {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .MoviesCard__length {
+        font-size: 10px;
+        line-height: 18px;
+    }
+
+    .MoviesCard__button {
+        font-size: 12px;
+        line-height: 11px;
+    }
+}
