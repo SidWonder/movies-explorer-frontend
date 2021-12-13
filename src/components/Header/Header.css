@@ -35,8 +35,16 @@
         padding-bottom: 50px;
         justify-content: center;
     }
-
+    .Header__login {
+        padding-top: 54px;
+        padding-bottom: 50px;
+        justify-content: center;
+    }
     .Header__register .Navigation__mobile {
+        width: 0;
+    }
+
+    .Header__login .Navigation__mobile {
         width: 0;
     }
 }
@@ -52,6 +60,14 @@
     }
 
     .Header__register {
+        padding-top: 70px;
+        padding-left: 0;
+        padding-bottom: 40px;
+        width: 396px;
+        margin: 0 auto;
+    }
+
+    .Header__login {
         padding-top: 70px;
         padding-left: 0;
         padding-bottom: 40px;
