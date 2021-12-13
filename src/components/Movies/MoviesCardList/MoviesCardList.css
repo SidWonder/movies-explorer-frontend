@@ -17,6 +17,13 @@
         grid-column-gap: 0;
         grid-row-gap: 32px;
     }
+}
 
-
+@media (min-width:768px) and (max-width: 1023px) {
+    .MoviesCardList{
+        grid-template-columns: 1fr 1fr;
+        padding: 70px 30px;
+        grid-column-gap: 0;
+        grid-row-gap: 32px;
+    }
 }

@@ -1,12 +1,13 @@
 .Profile {
     background-color: #202020;
-    height: 100vh;
+   height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     /*justify-content: center;*/
     align-content: center;
     padding-top: 74px;
+    box-sizing: border-box;
 }
 
 .Profile__title {
@@ -123,4 +124,88 @@ Profile__label_name:after {
 
 .Profile__link:hover {
     opacity: 0.3;
+}
+
+@media (min-width:320px) and (max-width: 767px) {
+    .Profile {
+        padding: 0 30px 40px 30px;
+        display: flex;
+        height: calc(100vh - 79px);
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .Profile__container {
+        display: flex;
+        flex-direction: column;
+        justify-self: center;
+        width: 100%;
+        margin-top: 80px;
+        flex: 1 1 auto;
+    }
+
+    .Profile__textContainer {
+        width: 100%;
+    }
+
+    .Profile__title {
+        margin-top: 70px;
+    }
+
+    .Profile__button {
+        width: 100%;
+    }
+
+    .Profile__button:nth-child(3) {
+        margin-top:auto;
+    }
+
+    .Profile__button:nth-child(4) {
+        margin-top: 16px;
+    }
+
+    .Profile__textContainer:nth-child(2) {
+         margin-top: 0;
+    }
+}
+
+@media (min-width:768px) and (max-width: 1023px) {
+    .Profile__container {
+        height: calc(100vh - 79px);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Profile__textContainer:first-child {
+        margin-top: 96px;
+    }
+
+    .Profile__textContainer:nth-child(2){
+        margin-top: 0;
+    }
+    .Profile__button_registration {
+        margin-top: 210px;
+    }
+    .Profile__button:nth-child(4) {
+        margin-top: 16px;
+    }
+}
+
+@media  (min-width:1024px) {
+.Profile__container{
+    width: 410px;
+}
+    .Profile__textContainer:first-child {
+        margin-top: 123px;
+    }
+    .Profile__textContainer:nth-child(2){
+        margin-top: 17px;
+    }
+
+    .Profile__button_registration {
+        margin-top: 220px;
+    }
+    .Profile__button:nth-child(4) {
+        margin-top: 16px;
+    }
 }

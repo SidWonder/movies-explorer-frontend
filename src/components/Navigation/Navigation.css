@@ -1,9 +1,16 @@
+
 .Navigation {
     box-sizing: border-box;
     display: flex;
     margin: 0;
     padding: 0;
-    padding: 18px 70px;
+    /*padding: 18px 70px;*/
+    width: 100%;
+    position: relative;
+}
+
+.Navigation__listItem_default:hover {
+    opacity: 0.3;
 }
 
 .Navigation__main {
@@ -37,7 +44,7 @@
 }
 .Navigation__link_logo {
     display: block;
-    width: 38px;
+    min-width: 38px;
     height: 38px;
     background-image: url('../../images/icons/icon_logo.svg');
 }
@@ -64,15 +71,15 @@
 }
 
 
-.Navigation__list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
+/*.Navigation__list {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    list-style: none;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
+/*    width: 100%;*/
+/*}*/
 
 .Navigation__listItem:hover {
     opacity: 0.3;
@@ -82,21 +89,21 @@
     margin-right: 30px;
 }
 
-.Navigation__link_movies {
-    margin-right: 20px;
-}
+/*.Navigation__link_movies {*/
+/*    margin-right: 20px;*/
+/*}*/
 
-.Navigation__link_savedMovies {
-    margin-right: 50px;
-}
-.Navigation__listItem:last-child {
-    width: 100px;
-}
+/*.Navigation__link_savedMovies {*/
+/*    margin-right: 50px;*/
+/*}*/
+/*.Navigation__listItem:last-child {*/
+/*    width: 100px;*/
+/*}*/
 .Navigation__link_account {
     text-align: left;
     position: relative;
 }
-
+/*
 .Navigation__link_account:after {
     position: absolute;
     content: "";
@@ -106,17 +113,54 @@
     left: 80px;
     top: -6px;
 }
+*/
 
+.Navigation__link_account {
+position: relative;
+}
+
+.Navigation__link_account:after{
+    position: absolute;
+    content: '';
+    background: url("../../images/icons/profile__icon.svg");
+    width: 26px;
+    height: 30px;
+    top: -6px;
+    right: -43px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+/*.Navigation__main  .Navigation__listItem:last-child {*/
+/*    width: 75px;*/
+/*}*/
+
+.Navigation__button_menuToggle {
+    background: url('../../images/icons/movie__burger.svg');
+    background-size: contain;
+    background-position: center;
+    border: none;
+    width: 40px;
+    height: 43px;
+}
 
 @media (min-width:320px) and (max-width: 767px) {
-    .Navigation {
-        padding: 18px 14px;
+    /*.Navigation {*/
+    /*    padding: 18px 14px;*/
+    /*}*/
+
+    .Navigation__mobile {
+        justify-content: flex-end;
     }
 
-    .Navigation__link {
-        font-size: 10px;
-        line-height: 16px;
+    .Navigation__listItem_registration {
+        margin-right: 14px;
     }
+    /*.Navigation__link {*/
+    /*    font-size: 10px;*/
+    /*    line-height: 16px;*/
+    /*}*/
 
     .Navigation__listItem:last-child {
         width: 70px;
@@ -158,4 +202,143 @@
     .Navigation__register .Navigation__list .Navigation__listItem:last-child {
         width: 38px;
     }
+
+    .Navigation__list_mobile {
+        box-sizing: border-box;
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: stretch;
+        background: #202020;
+        right: -14px;
+        top: -18px;
+        height: 100vh;
+        z-index: 2;
+        list-style: none;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        flex: 1 1 auto;
+        padding-bottom: 48px;
+        padding-top: 13px;
+        padding-right: 13px;
+    }
+
+    .Navigation__list_mobile-active {
+        display: flex;
+    }
+    .Navigation__listItem_default-mobile {
+        text-align: center;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 24px;
+    }
+
+    .Navigation__listItem_default-mobile:nth-child(2) {
+        margin-top: 100px;
+    }
+
+    .Navigation__listItem_default-mobile:last-child {
+        margin-top: auto;
+    }
+    .Navigation__button_close {
+        border: none;
+        background: url("../../images/icons/menu__close.svg");
+        width: 22px;
+        height: 22px;
+        background-size: contain;
+        padding: 0;
+        align-self: flex-end;
+    }
+}
+
+@media (min-width:768px) and (max-width: 1023px) {
+    .Navigation__mobile {
+        justify-content: flex-end;
+    }
+    .Navigation__listItem_default-mobile {
+        text-align: center;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 28px;
+    }
+
+    .Navigation__listItem_default-mobile:nth-child(2) {
+        margin-top: 112px;
+    }
+
+    .Navigation__list_mobile {
+        box-sizing: border-box;
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: stretch;
+        background: #272727;
+        right: -30px;
+        top: -21px;
+        height: 100vh;
+        z-index: 2;
+        list-style: none;
+        width: 520px;
+        margin: 0;
+        padding: 0;
+        flex: 1 1 auto;
+        padding-bottom: 92px;
+        padding-top: 22px;
+        padding-right: 22px;
+    }
+    .Navigation__listItem_registration {
+        margin-right: 30px;
+    }
+
+    .Navigation__list_mobile-active {
+        display: flex;
+    }
+    .Navigation__button_close {
+        border: none;
+        background: url("../../images/icons/menu__close.svg");
+        width: 22px;
+        height: 22px;
+        background-size: contain;
+        padding: 0;
+        align-self: flex-end;
+    }
+    .Navigation__listItem_default-mobile:last-child {
+        margin-top: auto;
+    }
+}
+
+@media (min-width:1024px) {
+
+    .Navigation__desktop {
+        justify-content: flex-end;
+    }
+
+    .Navigation__list_desktop {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        align-items: center;
+        padding: 0;
+    }
+    .Navigation__listItem_registration {
+        margin-right: 30px;
+    }
+    .Navigation__listItem_default-desktop:last-child {
+        /*max-height:18px ;*/
+    }
+    .Navigation__listItem_default-desktop:first-child {
+        margin-right: 20px;
+    }
+    .Navigation__listItem_default-desktop:nth-child(2) {
+        margin-right: 50px;
+    }
+    .Navigation__listItem_default-desktop:last-child {
+        padding-right: 43px;
+    }
+
 }

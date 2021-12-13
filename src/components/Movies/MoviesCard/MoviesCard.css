@@ -93,3 +93,9 @@
         line-height: 11px;
     }
 }
+
+@media (min-width:768px) and (max-width: 1023px) {
+    .MoviesCard{
+        width: 342px;
+    }
+}

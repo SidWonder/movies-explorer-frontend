@@ -4,7 +4,6 @@
     align-items: center;
     padding: 80px 70px;
     background-color: #202020;
-    /*padding-bottom: 83px;*/
 }
 .SearchForm__input::placeholder{
     color: #8B8B8B;
@@ -60,6 +59,17 @@
 }
 
 @media (min-width:320px) and (max-width: 767px) {
+    .SearchForm {
+        flex-direction: column;
+        padding: 60px 10px;
+    }
+    .SearchForm__label {
+        margin-right: 0;
+        width: 100%;
+    }
+}
+
+@media (min-width:768px) and (max-width: 1023px) {
     .SearchForm {
         flex-direction: column;
         padding: 60px 10px;

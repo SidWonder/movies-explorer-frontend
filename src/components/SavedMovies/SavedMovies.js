@@ -3,6 +3,7 @@ import "./SavedMovies.css";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import MoviesCard from "../Movies/MoviesCard/MoviesCard";
 import Header from "../Header/Header";
+import SearchForm from "../Movies/SearchForm/SearchForm";
 
 function SavedMovies() {
     const [cards, setCards] = React.useState([
@@ -56,6 +57,7 @@ function SavedMovies() {
     return (
         <section className="SavedMovies">
             <Header pageType={'savedMovies'}/>
+            <SearchForm />
             <MoviesCardList cards={cards} pageType={'favorites'}/>
         </section>
     )
