@@ -97,6 +97,43 @@
     line-height: 17px;
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+    .AboutMe {
+        padding: 90px 50px;
+    }
+    .AboutMe__text-wrapper {
+        grid-template-columns: 364px;
+    }
+
+    .AboutMe__title {
+        font-weight: normal;
+        font-size: 22px;
+        line-height: 27px;
+    }
+
+    .AboutMe__name {
+        font-size: 40px;
+        line-height: 40px;
+    }
+    .AboutMe__profession {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .AboutMe__bio {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .AboutMe__photo {
+        max-width: 255px;
+    }
+    .AboutMe__link_contact {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+    }
+}
+
 @media (min-width:320px) and (max-width: 767px) {
 
     .AboutMe {
@@ -146,3 +183,4 @@
         margin-top: 40px;
     }
 }
+

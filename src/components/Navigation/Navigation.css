@@ -4,9 +4,17 @@
     display: flex;
     margin: 0;
     padding: 0;
-    /*padding: 18px 70px;*/
-    width: 100%;
     position: relative;
+}
+
+.Navigation__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.Navigation__list_main {
+    display: flex;
 }
 
 .Navigation__listItem_default:hover {
@@ -15,6 +23,7 @@
 
 .Navigation__main {
     background-color: #073042;
+
 }
 
 .Navigation__movies {
