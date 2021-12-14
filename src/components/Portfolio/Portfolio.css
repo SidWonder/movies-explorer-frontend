@@ -40,7 +40,7 @@
     height: 30px;
     right: 0;
     top: 20px;
-    background-image: url("../../../images/icons/portfolio__arrow.svg");
+    background-image: url("../../images/icons/portfolio__arrow.svg");
     background-repeat: no-repeat;
 }
 .Portfolio__link:hover {

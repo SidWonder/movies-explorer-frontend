@@ -6,7 +6,6 @@
 .AboutMe__title {
     color: var(--default-white);
     text-align: left;
-    /*display: inline-block;*/
     margin: 0;
     padding: 0;
     font-size: 22px;
@@ -22,7 +21,6 @@
     display: grid;
     justify-content: space-between;
     grid-template-columns: 600px;
-    /*grid-template-rows: 58px 20px 88px 1fr;*/
     grid-template-rows: auto auto auto 1fr;
     grid-template-areas:
             "name  photo"

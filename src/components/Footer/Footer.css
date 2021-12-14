@@ -21,7 +21,6 @@
     list-style: none;
     display: flex;
     margin-top: 20px;
-    /*justify-content: space-between;*/
 }
 
 .Footer__item {
@@ -38,7 +37,6 @@
     justify-self: flex-start;
     text-align: left;
     margin-right: 0;
-    /*align-self: flex-end;*/
 }
 
 .Footer__item:last-child {

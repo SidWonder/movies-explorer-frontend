@@ -1,9 +1,9 @@
 import React from "react";
 import "./SavedMovies.css";
-import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
-import MoviesCard from "../Movies/MoviesCard/MoviesCard";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import MoviesCard from "../MoviesCard/MoviesCard";
 import Header from "../Header/Header";
-import SearchForm from "../Movies/SearchForm/SearchForm";
+import SearchForm from "../SearchForm/SearchForm";
 
 function SavedMovies() {
     const [cards, setCards] = React.useState([

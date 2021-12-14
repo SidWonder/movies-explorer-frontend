@@ -1,6 +1,5 @@
 .MoviesCardList {
     background-color: #202020;
-    /*background-color: #fff;*/
     padding: 70px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 360px));

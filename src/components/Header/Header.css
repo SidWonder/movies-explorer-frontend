@@ -110,7 +110,9 @@
         padding-top: 232px;
         padding-bottom: 40px;
     }
-
+    .Header__main  {
+        padding: 18px 30px;
+    }
     .Header__movies {
         padding: 18px 30px;
     }
