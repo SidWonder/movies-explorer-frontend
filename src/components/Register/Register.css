@@ -30,6 +30,11 @@
     font-size: 10px;
     line-height: 12px;
     color: #8B8B8B;
+    margin-top: 24px;
+}
+
+.Register__label:first-child{
+    margin-top: 0;
 }
 
 .Register__input {
@@ -41,13 +46,6 @@
     font-size: 14px;
     line-height: 17px;
     color: #FFFFFF;
-}
-
-.Register__label:nth-child(2){
-    margin-top: 40px;
-}
-.Register__label:nth-child(n+3){
-    margin-top: 24px;
 }
 
 .Register__button {
@@ -90,12 +88,10 @@
 
 @media (min-width:320px) and (max-width: 767px) {
     .Register {
-
         padding: 0 30px 30px 30px;
         display: flex;
         flex-direction: column;
         align-items: stretch;
-        /*justify-content: space-between;*/
     }
 
     .Register__form {
@@ -107,10 +103,6 @@
 
     .Register__button {
         margin-top: auto;
-    }
-
-    .Register__label:nth-child(2){
-        margin-top: 80px;
     }
 
     .Register__title {

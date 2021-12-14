@@ -30,6 +30,7 @@
     font-size: 10px;
     line-height: 12px;
     color: #8B8B8B;
+    margin-top: 24px;
 }
 
 .Login__input {
@@ -42,12 +43,8 @@
     line-height: 17px;
     color: #FFFFFF;
 }
-
-.Login__label:nth-child(2){
-    margin-top: 40px;
-}
-.Login__label:nth-child(n+3){
-    margin-top: 24px;
+.Login__label:first-child{
+    margin-top: 0;
 }
 
 .Login__button {
@@ -95,7 +92,6 @@
         display: flex;
         flex-direction: column;
         align-items: stretch;
-        /*justify-content: space-between;*/
     }
 
     .Login__form {
@@ -111,9 +107,6 @@
         margin-top: auto;
     }
 
-    .Login__label:nth-child(2){
-        margin-top: 80px;
-    }
 
     .Login__title {
         text-align: center;

@@ -9,10 +9,10 @@ function Register() {
         <section className="Register">
             <Header pageType={'register'}/>
             <form action="" className="Register__form">
-                <h1 className="Register__title">Добро пожаловать!</h1>
                 <label className="Register__label">
                     Имя
                     <input
+                        placeholder="Username"
                         type="text"
                         className="Register__input"
                         name="name"/>
@@ -20,6 +20,7 @@ function Register() {
                 <label className="Register__label">
                     E-mail
                     <input
+                        placeholder="name@domain.com"
                         name="email"
                         type="email"
                         className="Register__input"/>
@@ -27,6 +28,7 @@ function Register() {
                 <label className="Register__label">
                     Пароль
                     <input
+                        placeholder="Не менее 8 знаков"
                         type="password"
                         className="Register__input"/>
                 </label>

@@ -13,7 +13,7 @@
     content: '';
     position: absolute;
     bottom: 0px;
-    width: 90.5%;
+    width: calc(100% - 140px);
     height: 1px;
     background: #AAAAAA;
     opacity: 0.2;
@@ -63,6 +63,11 @@
         flex-direction: column;
         padding: 60px 10px;
     }
+
+    .SearchForm:after {
+        width: calc(100% - 20px);
+    }
+
     .SearchForm__label {
         margin-right: 0;
         width: 100%;
@@ -74,6 +79,11 @@
         flex-direction: column;
         padding: 60px 10px;
     }
+
+    .SearchForm:after {
+        width: calc(100% - 20px);
+    }
+
     .SearchForm__label {
         margin-right: 0;
         width: 100%;

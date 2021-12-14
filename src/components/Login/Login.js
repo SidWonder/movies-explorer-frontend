@@ -8,7 +8,6 @@ function Login() {
         <section className="Login">
             <Header pageType={'login'}/>
             <form action="" className="Login__form">
-                <h1 className="Login__title">Рады видеть!</h1>
                 <label className="Login__label">
                     E-mail
                     <input

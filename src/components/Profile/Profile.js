@@ -7,7 +7,6 @@ function Profile() {
         <>
             <Header pageType={'profile'}/>
         <section className="Profile">
-
                 <h1 className="Profile__title">Привет, Виталий!</h1>
             <div className="Profile__container">
                 <div className="Profile__textContainer">

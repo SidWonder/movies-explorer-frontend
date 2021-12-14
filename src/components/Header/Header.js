@@ -22,10 +22,11 @@ function Header({pageType}) {
     return (
         <header className={`Header Header__${pageType}`} >
             <Link to="/"
-                  className="Navigation__link Navigation__link_logo">
+                  className="Header__link_logo">
             </Link>
+            {pageType === 'register' && <h2 className='Header__title'>Добро пожаловать!</h2>}
+            {pageType === 'login' && <h2 className='Header__title'>Рады видеть!</h2>}
             <Navigation pageType={pageType} mobile={view}/>
-            {/*<button onClick={toggleMenu} className="Header__button"></button>*/}
         </header>
     )
 }
