@@ -1,10 +1,9 @@
-import {React, useRef} from "react";
+import {React, useRef, useEffect} from "react";
 import './Navigation.css';
 import {Link} from "react-router-dom";
 import isMobile from "is-mobile";
 
 function Navigation({pageType, mobile}) {
-    console.log(pageType, mobile)
 
     const menuMobile = useRef(null);
 
@@ -15,23 +14,23 @@ function Navigation({pageType, mobile}) {
         } else {
             menuMobile.current.classList.add('Navigation__list_mobile-active');
         }
-
     }
 
     return (
         <nav className={`Navigation ${mobile ? 'Navigation__mobile' : 'Navigation__desktop'}`}>
-            {pageType === 'main' && <ul className="Navigation__list Navigation__list_main">
-                <li className="Navigation__listItem_main
-                               Navigation__listItem_registration">
-                    <Link to="/signup" className="Navigation__link
-                                            Navigation__link_auth">Регистрация</Link>
-                </li>
-                <li className="Navigation__listItem_main
-                            Navigation__listItem_login">
-                    <Link to="/signin" className="Navigation__link
-                                       Navigation__link_auth
-                                       Navigation__link_auth_active">Войти</Link>
-                </li>
+            {pageType === 'main' &&
+                <ul className="Navigation__list Navigation__list_main">
+                    <li className="Navigation__listItem_main
+                                   Navigation__listItem_registration">
+                        <Link to="/signup" className="Navigation__link
+                                                Navigation__link_auth">Регистрация</Link>
+                    </li>
+                    <li className="Navigation__listItem_main
+                                Navigation__listItem_login">
+                        <Link to="/signin" className="Navigation__link
+                                           Navigation__link_auth
+                                           Navigation__link_auth_active">Войти</Link>
+                    </li>
             </ul>}
 
             {(pageType === 'movies'
@@ -65,23 +64,29 @@ function Navigation({pageType, mobile}) {
             {(pageType === 'movies'
                 || pageType === 'savedMovies'
                 || pageType === 'profile') && !mobile && <>
-                <ul ref={menuMobile} className={`Navigation__list Navigation__list_default Navigation__list_desktop`}>
+                <ul ref={menuMobile}
+                    className={`Navigation__list 
+                                Navigation__list_default 
+                                Navigation__list_desktop`}
+                >
                     <li className="Navigation__listItem_default
-                            Navigation__listItem_default-desktop">
+                                        Navigation__listItem_default-desktop"
+                    >
                         <Link to="/movies" className="Navigation__link
-         Navigation__link_movies">Фильмы</Link>
-                    </li>
-                    <li className="Navigation__listItem_default
-                                    Navigation__listItem_default-desktop">
-                        <Link to="/saved-movies" className="Navigation__link
-          Navigation__link_savedMovies">Сохраненные фильмы</Link>
-                    </li>
-                    <li className="Navigation__listItem_default
-                                    Navigation__listItem_default-desktop">
-                        <Link to="/profile" className="Navigation__link
-          Navigation__link_account">Аккаунт
+                                                        Navigation__link_movies">Фильмы
                         </Link>
                     </li>
+                        <li className="Navigation__listItem_default
+                                            Navigation__listItem_default-desktop">
+                            <Link to="/saved-movies" className="Navigation__link
+                  Navigation__link_savedMovies">Сохраненные фильмы</Link>
+                        </li>
+                        <li className="Navigation__listItem_default
+                                            Navigation__listItem_default-desktop">
+                            <Link to="/profile" className="Navigation__link
+                  Navigation__link_account">Аккаунт
+                            </Link>
+                        </li>
                 </ul>
             </>
             }
