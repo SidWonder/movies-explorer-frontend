@@ -1,0 +1,151 @@
+.Header {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Header__title {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    margin: 0;
+    margin-top: 40px;
+    color: #FFFFFF;
+}
+
+.Header__link_logo {
+    display: block;
+    min-width: 38px;
+    height: 38px;
+    background-image: url('../../images/icons/icon_logo.svg');
+}
+
+
+.Header__main {
+    background-color: #073042;
+}
+
+.Header__movies {
+    background-color:  #202020;
+}
+.Header__savedMovies {
+    background-color:  #202020;
+}
+
+.Header__login {
+    background-color: #202020;
+}
+
+.Header__profile {
+    margin: 0 auto;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    background-color: #202020;
+}
+
+.Header__login {
+    padding-top: 70px;
+    padding-left: 0;
+    padding-bottom: 40px;
+    width: 396px;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.Header__register {
+    margin: 0 auto;
+    width: 396px;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+@media (min-width:320px) and (max-width: 767px) {
+    .Header__register {
+        padding-top: 54px;
+        padding-bottom: 50px;
+        justify-content: center;
+        width: 260px;
+    }
+    .Header__login {
+        padding-top: 56px;
+        padding-bottom: 80px;
+        justify-content: center;
+        width: 260px;
+    }
+
+    .Header__movies {
+        padding: 18px 14px;
+    }
+    .Header__savedMovies  {
+        padding: 18px 14px;
+    }
+
+    .Header__profile {
+        padding: 18px 14px;
+    }
+
+    .Header__main {
+        padding: 18px 14px;
+    }
+
+    .Header__title {
+        align-self: center;
+    }
+
+    .Header__link_logo {
+        align-self: center;
+    }
+}
+@media (min-width:768px) and (max-width: 1023px) {
+    .Header__register {
+        padding-top: 232px;
+        padding-bottom: 40px;
+    }
+
+    .Header__login {
+        padding-top: 232px;
+        padding-bottom: 40px;
+    }
+    .Header__main  {
+        padding: 18px 30px;
+    }
+    .Header__movies {
+        padding: 18px 30px;
+    }
+    .Header__savedMovies  {
+        padding: 18px 30px;
+    }
+
+    .Header__profile  {
+        padding: 18px 30px;
+    }
+
+}
+
+@media (min-width:1024px) {
+    .Header {
+        padding: 18px 70px;
+    }
+
+    .Header__register {
+        padding-top: 70px;
+        padding-left: 0;
+        padding-bottom: 40px;
+        width: 396px;
+        margin: 0 auto;
+    }
+
+    .Header__login {
+        padding-top: 70px;
+        padding-left: 0;
+        padding-bottom: 40px;
+        width: 396px;
+        margin: 0 auto;
+    }
+
+
+}

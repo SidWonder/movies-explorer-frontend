@@ -1,0 +1,210 @@
+.Profile {
+    background-color: #202020;
+   height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    padding-top: 74px;
+    box-sizing: border-box;
+}
+
+.Profile__title {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
+    margin: 0;
+    text-align: center;
+}
+.Profile__textContainer {
+    width: 410px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #424242;
+}
+
+.Profile__textContainer:nth-child(2) {
+    margin-top: 123px;
+}
+.Profile__form {
+    display: flex;
+    flex-direction: column;
+    width: 396px;
+    margin: 0 auto;
+    border-bottom: 1px solid #424242;
+}
+
+.Profile__label {
+    border-bottom: 1px solid #424242;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #8B8B8B;
+    position: relative;
+}
+
+.Profile__input {
+    margin-top: 5px;
+    background: none;
+    outline: none;
+    border: none;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
+}
+
+.Profile__label:nth-child(2){
+    margin-top: 40px;
+}
+.Profile__label:nth-child(n+3){
+    margin-top: 24px;
+}
+
+.Profile__button {
+    background: none;
+    height: 16px;
+    border: none;
+    font-size: 13px;
+    line-height: 16px;
+   ;
+    width: 410px;
+}
+.Profile__button:hover {
+    cursor: pointer;
+    opacity: 0.3;
+}
+.Profile__button_registration {
+    color: #FFFFFF
+}
+.Profile__button_logout {
+    color: #EE3465;
+    margin-top: 16px;
+}
+.Profile__button:nth-child(4) {
+    margin-top: 220px;
+}
+.Profile__text {
+    margin: 0;
+    margin-top: 16px;
+    font-size: 11px;
+    line-height: 13px;
+    color: #FFFFFF;
+}
+
+.Profile__link {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #4285F4;
+    text-decoration: none;
+}
+
+.Profile__label_email:after {
+    position: absolute;
+    content: "E-mail";
+    color: #FFFFFF;
+}
+
+Profile__label_name:after {
+    position: absolute;
+    content: "Имя";
+    color: #FFFFFF;
+    top: 0;
+
+}
+
+.Profile__link:hover {
+    opacity: 0.3;
+}
+
+@media (min-width:320px) and (max-width: 767px) {
+    .Profile {
+        padding: 0 30px 40px 30px;
+        display: flex;
+        height: calc(100vh - 79px);
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .Profile__container {
+        display: flex;
+        flex-direction: column;
+        justify-self: center;
+        width: 100%;
+        margin-top: 80px;
+        flex: 1 1 auto;
+    }
+
+    .Profile__textContainer {
+        width: 100%;
+    }
+
+    .Profile__title {
+        margin-top: 70px;
+    }
+
+    .Profile__button {
+        width: 100%;
+    }
+
+    .Profile__button:nth-child(3) {
+        margin-top:auto;
+    }
+
+    .Profile__button:nth-child(4) {
+        margin-top: 16px;
+    }
+
+    .Profile__textContainer:nth-child(2) {
+         margin-top: 0;
+    }
+}
+
+@media (min-width:768px) and (max-width: 1023px) {
+    .Profile__container {
+        height: calc(100vh - 79px);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Profile__textContainer:first-child {
+        margin-top: 96px;
+    }
+
+    .Profile__textContainer:nth-child(2){
+        margin-top: 0;
+    }
+    .Profile__button_registration {
+        margin-top: 210px;
+    }
+    .Profile__button:nth-child(4) {
+        margin-top: 16px;
+    }
+}
+
+@media  (min-width:1024px) {
+.Profile__container{
+    width: 410px;
+}
+    .Profile__textContainer:first-child {
+        margin-top: 123px;
+    }
+    .Profile__textContainer:nth-child(2){
+        margin-top: 17px;
+    }
+
+    .Profile__button_registration {
+        margin-top: 220px;
+    }
+    .Profile__button:nth-child(4) {
+        margin-top: 16px;
+    }
+}

@@ -1,0 +1,116 @@
+/*.MoviesCard {*/
+/*    background-color: #222222;*/
+/*    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);*/
+/*    border-radius: 6px;*/
+/*    width: 360px;*/
+/*    height: 320px;*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    justify-content: space-between;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+.MoviesCard {
+    background-color: #222222;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    /*width: 360px;*/
+    /*height: 320px;*/
+    display: grid;
+    grid-template-areas:
+    "name length"
+    "img img"
+    "btn btn";
+    /*grid-template-columns: 1fr;*/
+    box-sizing: border-box;
+    /*overflow: hidden;*/
+    padding: 18px;
+}
+
+.MoviesCard:last-child {
+    margin-left: 0;
+}
+
+.MoviesCard__title {
+    grid-area: name;
+    box-sizing: border-box;
+    /*padding: 18px 0 0 18px;*/
+    margin: 0;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #FFFFFF;
+}
+
+.MoviesCard__length {
+    grid-area: length;
+    /*padding: 18px 18px 0 0;*/
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 18px;
+    color: #8B8B8B;
+    margin: 0;
+    text-align: right;
+}
+
+.MoviesCard__image {
+    grid-area: img;
+    flex-grow: 1;
+    height: 200px;
+    object-fit: cover;
+    width: calc(100% + 36px);
+    margin: 18px -18px;
+}
+
+.MoviesCard__button {
+    grid-area: btn;
+    width: 100px;
+    height: 29px;
+    margin: 0 auto;
+    background: #313131;
+    border-radius: 30px;
+    border: none;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 11px;
+    padding: 0;
+}
+
+.MoviesCard__button_inFavoriteMovieList{
+    background: #EE3465 url("../../images/icons/movie__inFavorite.svg") no-repeat center;
+}
+
+.MoviesCard__button:hover {
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+.MoviesCard__button_inFavoriteList {
+    background: #313131 url("../../images/icons/movie__removeFromFavorite.svg") no-repeat center;
+}
+
+@media (min-width:320px) and (max-width: 767px) {
+    .MoviesCard {
+        padding: 14px;
+        /*width: 300px;*/
+    }
+
+    .MoviesCard__title {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .MoviesCard__image {
+        margin: 14px -14px;
+        width: calc(100% + 28px);
+    }
+
+    .MoviesCard__length {
+        font-size: 10px;
+        line-height: 18px;
+    }
+
+    .MoviesCard__button {
+        font-size: 12px;
+        line-height: 11px;
+    }
+}
