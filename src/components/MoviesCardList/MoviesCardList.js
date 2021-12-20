@@ -3,18 +3,21 @@ import "./MoviesCardList.css";
 
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({cards, pageType}) {
+function MoviesCardList({cards, pageType, addMovieToFav, removeMovieFromFav}) {
     return (
         <section className="MoviesCardList">
         { pageType === 'allMovies' &&
                 cards.map((x, i) => {
                         return (
-                    <MoviesCard movieName={x.movieName}
-                                movieLength={x.movieLength}
-                                movieCover={x.movieCover}
+                    <MoviesCard movieName={x.nameRU}
+                                movieLength={x.duration}
+                                movieCover={`https://api.nomoreparties.co${x.image.url}`}
                                 movieInFavorite={x.movieInFavorite}
+                                addMovieToFav={addMovieToFav}
+                                removeMovieFromFav={removeMovieFromFav}
                                 type={pageType}
-                                key={i}
+                                movieId={x.id}
+                                key={x.id}
                                 />
                 )})
         }

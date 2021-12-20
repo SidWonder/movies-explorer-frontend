@@ -5,7 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 
-function Movies() {
+function Movies({search, movies, addMovieToFav, removeMovieFromFav}) {
 
     const [cards, setCards] = React.useState([
         {
@@ -56,11 +56,18 @@ function Movies() {
 
     ]);
 
+
+
     return (
         <section className="Movies">
             <Header pageType={'movies'}/>
-            <SearchForm />
-            <MoviesCardList cards={cards} pageType={'allMovies'} />
+            <SearchForm search={search}/>
+            <MoviesCardList
+                cards={movies}
+                pageType={'allMovies'}
+                addMovieToFav={addMovieToFav}
+                removeMovieFromFav={removeMovieFromFav}
+            />
         </section>
     );
 }

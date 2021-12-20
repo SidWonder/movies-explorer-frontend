@@ -53,6 +53,8 @@ function SavedMovies() {
 
 
     ]);
+
+
     return (
         <section className="SavedMovies">
             <Header pageType={'savedMovies'}/>
