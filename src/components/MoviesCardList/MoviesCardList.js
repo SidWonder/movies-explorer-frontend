@@ -3,7 +3,18 @@ import "./MoviesCardList.css";
 
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({cards, pageType, addMovieToFav, removeMovieFromFav}) {
+function MoviesCardList({cards, pageType, addMovieToFav,favMovies ,removeMovieFromFav}) {
+
+    function isFavorite(id){
+        console.log(id, favMovies)
+        if(favMovies){
+            // console.log(id, favMovies.split(';').includes(''+id))
+            return favMovies.split(';').includes(''+id);
+        }
+
+
+    }
+
     return (
         <section className="MoviesCardList">
         { pageType === 'allMovies' &&
@@ -12,7 +23,7 @@ function MoviesCardList({cards, pageType, addMovieToFav, removeMovieFromFav}) {
                     <MoviesCard movieName={x.nameRU}
                                 movieLength={x.duration}
                                 movieCover={`https://api.nomoreparties.co${x.image.url}`}
-                                movieInFavorite={x.movieInFavorite}
+                                movieInFavorite={isFavorite(x.id)}
                                 addMovieToFav={addMovieToFav}
                                 removeMovieFromFav={removeMovieFromFav}
                                 type={pageType}

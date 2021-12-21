@@ -3,6 +3,7 @@ import {React, useState, useEffect} from 'react';
 import {
     Routes,
     Route,
+    useHistory
 } from "react-router-dom";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -19,20 +20,25 @@ import MoviesApi from "../../utils/MoviesApi";
 function App() {
 
     const [allMovies, setAllMovies] = useState(JSON.parse(localStorage.getItem('beatFilmDB')) || null);
-    const [favMoviesID, setFavMoviesID] = useState(localStorage.getItem('favMovies'));
+    const [favMoviesID, setFavMoviesID] = useState(localStorage.getItem('favMovies') || null);
     const [favMoviesCards, setFavMoviesCards] = useState([]);
     const [searchResult, setSearchResult] = useState([]);
     const [searchQuery, setSearchQuery] = useState(null);
 
     useEffect(() => {
-        localStorage.setItem('favorEvents', favMoviesID);
+        localStorage.setItem('favorMovies', favMoviesID);
         favMoviesArrCreator();
     }, [favMoviesID]);
+
+    useEffect(()=>{
+        tryToFilter();
+    }, [searchQuery, allMovies])
 
     function addMovieToFavorite(movieID) {
         console.log('dw');
         //TODO добавить запрос к апи
         const ids = `${favMoviesID};${movieID}`;
+        localStorage.setItem('favMovies', ids);
         setFavMoviesID(ids);
     }
 
@@ -53,6 +59,8 @@ function App() {
     }
 
     function searchAllMovies(searchText) {
+        console.log('searchWasCalled', searchText)
+        setSearchQuery(searchText);
         if(!allMovies) {
             MoviesApi.getData()
                 .then(res=> {
@@ -61,9 +69,23 @@ function App() {
                 })
                 .catch(err=> console.log(err))
         }
-        setSearchQuery(searchText);
-        setSearchResult(allMovies.filter(x=> x.nameRU.match(searchQuery)));
-        console.log(searchResult);
+
+    }
+
+    function tryToFilter() {
+        console.log('hel', allMovies);
+        if(allMovies){
+            console.log(allMovies);
+            const regex2 = new RegExp(searchQuery, "gi");
+            const searchRes = allMovies.filter(x=> {
+                return x.nameRU.match(regex2)
+                    || x.nameEN && x.nameEN.match(regex2)
+                    || x.description && x.description.match(regex2)
+            });
+            if(searchRes.length){
+                setSearchResult(searchRes);
+            }
+        }
     }
 
     function favMoviesArrCreator() {
@@ -75,7 +97,6 @@ function App() {
                     favMoviesArr.push(allMovies.filter(y=> x == y.id)[0])
                 }
             })
-            console.log(favMoviesArr);
         }
     }
 
@@ -89,7 +110,8 @@ function App() {
                 path="/movies"
                 element={<Movies
                     search={searchAllMovies}
-                    movies={allMovies}
+                    movies={searchResult}
+                    favMovies={favMoviesID}
                     addMovieToFav={addMovieToFavorite}
                     removeMovieFromFav={removeMovieFromFavorite}
                 />} />

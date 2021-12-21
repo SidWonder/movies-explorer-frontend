@@ -15,11 +15,12 @@ function SearchForm ({search}) {
         event.preventDefault();
         const searchInput = event.target.searchInput;
         const searchText = searchInput.value;
+        console.log(searchText, search)
         if(searchText.length >= 3) {
-            console.log('here')
+            // console.log('here')
             search(searchText)
         } else {
-            console.log('form error',searchInput.validity.valid,  searchInput.validationMessage)
+            // console.log('form error',searchInput.validity.valid,  searchInput.validationMessage)
             setErrorText(searchInput.validationMessage);
         }
     }

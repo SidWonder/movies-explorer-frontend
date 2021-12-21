@@ -3,6 +3,8 @@ import "./MoviesCard.css";
 
 function MoviesCard({movieName , movieLength, movieCover, movieInFavorite, type, addMovieToFav, movieId}) {
 
+    console.log(movieInFavorite);
+
     function handleToggleFav(){
         addMovieToFav(movieId);
     }
