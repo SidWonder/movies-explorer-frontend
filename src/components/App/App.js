@@ -16,6 +16,7 @@ import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 
 import MoviesApi from "../../utils/MoviesApi";
+import mainApi from "../../utils/MainApi";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
     const [favMoviesCards, setFavMoviesCards] = useState([]);
     const [searchResult, setSearchResult] = useState([]);
     const [searchQuery, setSearchQuery] = useState(null);
+    const [isLoggedIn, setIsLogged] = useState(false);
 
     useEffect(() => {
         localStorage.setItem('favorMovies', favMoviesID);
@@ -100,6 +102,35 @@ function App() {
         }
     }
 
+    function handleRegister(name, email, password) {
+        console.log(name, email, password)
+        return mainApi.createUser(name, email, password);
+    }
+
+    function handleLogin(email, password) {
+        console.log(email, password)
+        mainApi.login(email, password)
+            .then((data) => {
+                if (data.ok) {
+                    return data.json();
+                }
+                else if (data.status === 400) {
+                    throw new Error('не передано одно из полей');
+                } else if (data.status === 401) {
+                    throw new Error('пользователь с email не найден');
+                } else {
+                    throw new Error('что-то пошло не так');
+                }
+            })
+            .then((data)=> {
+                if (data.token) {
+                    setIsLogged(true);
+                    localStorage.setItem('token', data.token);
+                }
+            })
+            .catch((err) => console.log(err));
+    }
+
   return (
     <div className="App">
         <Routes>
@@ -122,10 +153,15 @@ function App() {
                 path="/profile"
                 element={<Profile />} />
             <Route path="/signin"
-                  element={ <Login />} />
+                  element={ <Login
+                      handleLogin={handleLogin}
+                  />} />
             <Route
                 exactly path="/signup"
-                element={<Register />} />
+                element={<Register
+                    handleRegister={handleRegister}
+                    handleLogin={handleLogin}
+                />} />
             <Route path="/*" element={<NotFound />}/>
         </Routes>
         <Footer/>

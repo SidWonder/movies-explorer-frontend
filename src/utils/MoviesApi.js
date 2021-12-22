@@ -15,6 +15,5 @@ class Api {
             });
     }
 }
-
 const MoviesApi = new Api(baseUrl);
 export default MoviesApi;
