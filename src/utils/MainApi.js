@@ -9,6 +9,16 @@ class MainApi {
             Accept: 'application/json',
                 'Content-Type': 'application/json',
         };
+        this._token = `Bearer ${localStorage.getItem("token")}`;
+        this._headersAuth = {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this._token}`,
+        };
+    }
+
+    setToken(token) {
+        this._token = `Bearer ${token}`;
     }
 
     createUser(name, email, password) {
@@ -30,6 +40,29 @@ class MainApi {
             credentials: "include",
         })
             .then((response) => response)
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    getUserData(token) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: "GET",
+            headers:  this._headersAuth,
+            credentials: "include",
+        })
+            .then((response) => response)
+            .then((res) => {
+                if (res.status === 401) {
+                    throw new Error(
+                        "Токен не передан или передан не в том формате"
+                    );
+                } else if (res.status === 400) {
+                    throw new Error("Переданный токен некорректен");
+                } else {
+                    return res.json();
+                }
+            })
             .catch((err) => {
                 console.log(err);
             });
