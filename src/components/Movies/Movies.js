@@ -5,13 +5,15 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 
-function Movies({search, movies, addMovieToFav, removeMovieFromFav, favMovies}) {
+function Movies({search, movies, addMovieToFav, removeMovieFromFav, favMovies, getFavMovies, loggedIn}) {
 
     useEffect(()=>{},[movies])
 
     return (
         <section className="Movies">
-            <Header pageType={'movies'}/>
+            <Header
+                loggedIn={loggedIn}
+                pageType={'movies'}/>
             <SearchForm search={search}/>
             <MoviesCardList
                 cards={movies}

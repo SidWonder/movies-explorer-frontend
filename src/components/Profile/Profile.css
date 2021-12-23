@@ -9,6 +9,14 @@
     box-sizing: border-box;
 }
 
+#Profile__name,
+#Profile__email{
+    background: none;
+    border: none;
+}
+
+
+
 .Profile__title {
     font-weight: 500;
     font-size: 24px;

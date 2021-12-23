@@ -50,6 +50,15 @@ function App() {
         tryToFilter();
     }, [searchQuery, allMovies])
 
+    useEffect(() => {
+        if (token) {
+            tokenChecker();
+        } else {
+            console.log('чет не работает авторизация с токеном');
+        }
+    }, []);
+
+
     function addMovieToFavorite(movieID) {
         console.log('dw');
         //TODO добавить запрос к апи
@@ -120,37 +129,37 @@ function App() {
         if(token) {
             setIsLoggedIn(true);
             history.push(path);
-            mainApi.getUserData(token)
+            mainApi.getUserData()
                 .then((res) => {
-                const data = res.email ? res : {};
-                setCurrentUser(data);
-                // fetchLikedMovies();
-            })
+                    setCurrentUser(res);
+                    getFavMovies();
+                })
+        } else {
+            return;
         }
     }
 
+    const getFavMovies = () => {
+        mainApi.getFavMovies()
+            .then(res => {
+                setFavMoviesCards(res);
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    };
+
     function handleRegister(name, email, password) {
-        console.log(name, email, password)
         return mainApi.createUser(name, email, password);
     }
 
     function handleLogin(email, password) {
         mainApi.login(email, password)
             .then((data) => {
-                if (data.ok) {
-                    return data.json();
-                } else if (data.status === 400) {
-                    throw new Error('не передано одно из полей');
-                } else if (data.status === 401) {
-                    throw new Error('пользователь с email не найден');
-                } else {
-                    throw new Error('что-то пошло не так');
-                }
-            })
-            .then((data) => {
                 if (data.token) {
                     setIsLoggedIn(true);
                     localStorage.setItem('token', data.token);
+                    tokenChecker();
                     mainApi.setToken(data.token);
                     history.push("/movies");
                     setCurrentUser(data);
@@ -159,8 +168,26 @@ function App() {
             .catch((err) => console.log(err));
     }
 
+    function handleUpdateUserData({name, email}) {
+        mainApi
+            .editUserData({ name, email })
+            .then((res) => {
+                tokenChecker();
+            })
+            .catch((e) => console.log(e));
+    }
+
+    function handleLogout () {
+        localStorage.removeItem("token");
+        // localStorage.removeItem("moviesList");
+        localStorage.removeItem("searchQuery");
+        setIsLoggedIn(false);
+        history.push("/");
+        setCurrentUser({});
+    };
+
     return (
-        <CurrentUserContext.Provider value={currentUser}>
+        <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
             <div className="App">
                 <Switch>
                     <Route exact path="/">
@@ -179,11 +206,13 @@ function App() {
                         redirectTo='/signin'
                         hasPermission={isLoggedIn}>
                         <Movies
+                            loggedIn={isLoggedIn}
                             search={searchAllMovies}
                             movies={searchResult}
-                            favMovies={favMoviesID}
+                            favMovies={favMoviesCards}
                             addMovieToFav={addMovieToFavorite}
                             removeMovieFromFav={removeMovieFromFavorite}
+                            getFavMovies={getFavMovies}
                         />
                         <Footer />
                     </ProtectedRoute>
@@ -198,8 +227,9 @@ function App() {
                         path="/profile"
                         redirectTo='/signin'
                         hasPermission={isLoggedIn}>
-                        >
-                        <Profile/>
+                        <Profile
+                            handleUpdateUserData={handleUpdateUserData}
+                        />
                     </ProtectedRoute>
                     <Route path="/*">
                         <NotFound/>
