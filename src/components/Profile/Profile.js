@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function Profile({handleUpdateUserData}) {
+function Profile({handleUpdateUserData, logout}) {
 
     const {currentUser, setCurrentUser} = useContext(CurrentUserContext);
 
@@ -16,7 +16,6 @@ function Profile({handleUpdateUserData}) {
         event.preventDefault();
         const emailInput = event.target.Profile__email.value;
         const nameInput = event.target.Profile__name.value;
-            console.log(emailInput, nameInput)
             handleUpdateUserData({name:nameInput, email: emailInput });
     }
 
@@ -35,7 +34,7 @@ function Profile({handleUpdateUserData}) {
                         <input id='Profile__email' className="Profile__text" type='email'placeholder={email}></input>
                     </label>
                     <button type="submit" className="Profile__button Profile__button_registration">Редактировать</button>
-                    <button className="Profile__button Profile__button_logout">Выйти из аккаунта</button>
+                    <button onClick={logout} className="Profile__button Profile__button_logout">Выйти из аккаунта</button>
                 </form>
 
             </section>

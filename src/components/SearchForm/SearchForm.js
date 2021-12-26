@@ -5,7 +5,7 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import MovieApi from "../../utils/MoviesApi";
 import ValidationError from "../ValidationError/ValidationError";
 
-function SearchForm ({search}) {
+function SearchForm ({search, pageType}) {
 
     const [valid, setValid] = useState(true);
     const [inputValue, setInputValue] = useState()
@@ -15,13 +15,14 @@ function SearchForm ({search}) {
         event.preventDefault();
         const searchInput = event.target.searchInput;
         const searchText = searchInput.value;
-        console.log(searchText, search)
-        if(searchText.length >= 3) {
-            // console.log('here')
-            search(searchText)
+        if(!searchText.length) {
+            search('', pageType)
+        } else if(searchText.length >= 3) {
+            search(searchText, pageType)
         } else {
-            // console.log('form error',searchInput.validity.valid,  searchInput.validationMessage)
+            console.log('form error',searchInput.validity.valid,  searchInput.validationMessage)
             setErrorText(searchInput.validationMessage);
+            setValid(false);
         }
     }
 
@@ -30,7 +31,7 @@ function SearchForm ({search}) {
         setInputValue(event.target.value);
     }
 
-    useEffect(()=>{}, [valid]);
+    useEffect(()=>{}, [errorText]);
 
     return (
         <form

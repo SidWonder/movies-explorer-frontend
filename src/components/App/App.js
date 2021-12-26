@@ -23,6 +23,7 @@ import NotFound from "../NotFound/NotFound";
 
 import MoviesApi from "../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
+import MainApi from "../../utils/MainApi";
 
 function App() {
 
@@ -30,7 +31,7 @@ function App() {
     const [favMoviesID, setFavMoviesID] = useState(localStorage.getItem('favMovies') || null);
     const [favMoviesCards, setFavMoviesCards] = useState([]);
     const [searchResult, setSearchResult] = useState([]);
-    const [searchQuery, setSearchQuery] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [currentUser, setCurrentUser] = useState({});
@@ -42,13 +43,8 @@ function App() {
     const path = currentLocation.pathname;
 
     useEffect(() => {
-        localStorage.setItem('favorMovies', favMoviesID);
-        favMoviesArrCreator();
-    }, [favMoviesID]);
-
-    useEffect(() => {
         tryToFilter();
-    }, [searchQuery, allMovies])
+    }, [searchQuery])
 
     useEffect(() => {
         if (token) {
@@ -59,31 +55,19 @@ function App() {
     }, []);
 
 
-    function addMovieToFavorite(movieID) {
-        console.log('dw');
-        //TODO добавить запрос к апи
-        const ids = `${favMoviesID};${movieID}`;
-        localStorage.setItem('favMovies', ids);
+    function addMovieToFavorite(movie) {
+        const ids = `${favMoviesID};${movie.id}`;
         setFavMoviesID(ids);
+        MainApi.addToFav(movie)
+            .then(res => getFavMovies())
     }
 
     function removeMovieFromFavorite(movieID) {
-        //TODO добавить запрос к апи
-        const item = setFavMoviesID.split(';').indexOf(movieID);
-        if (item !== -1) {
-            const start = item;
-            const end = item + 1;
-            setFavMoviesID(
-                favMoviesID
-                    .split(';')
-                    .slice(0, start)
-                    .concat(favMoviesID.split(';').slice(end))
-                    .join(';'),
-            );
-        }
+        MainApi.removeFromFav(movieID)
+            .then(res=> getFavMovies())
     }
 
-    function searchAllMovies(searchText) {
+    function searchAllMovies(searchText, pageType) {
         console.log('searchWasCalled', searchText)
         setSearchQuery(searchText);
         if (!allMovies) {
@@ -91,37 +75,27 @@ function App() {
                 .then(res => {
                     setAllMovies(res);
                     localStorage.setItem('beatFilmDB', JSON.stringify(res));
+                    tryToFilter(pageType);
                 })
                 .catch(err => console.log(err))
         }
 
     }
 
-    function tryToFilter() {
-        console.log('hel', allMovies);
-        if (allMovies) {
-            console.log(allMovies);
+    function tryToFilter(pageType) {
+        const searchSource = pageType === 'AllMovies' ? allMovies : searchResult;
+        if (searchSource) {
             const regex2 = new RegExp(searchQuery, "gi");
-            const searchRes = allMovies.filter(x => {
+            const searchRes = searchSource.filter(x => {
                 return x.nameRU.match(regex2)
                     || x.nameEN && x.nameEN.match(regex2)
                     || x.description && x.description.match(regex2)
             });
             if (searchRes.length) {
                 setSearchResult(searchRes);
+            } else {
+                setSearchResult(null);
             }
-        }
-    }
-
-    function favMoviesArrCreator() {
-        console.log(favMoviesID)
-        if (favMoviesID) {
-            let favMoviesArr = []
-            favMoviesID.split(';').forEach(x => {
-                if (allMovies.filter(y => x == y.id).length) {
-                    favMoviesArr.push(allMovies.filter(y => x == y.id)[0])
-                }
-            })
         }
     }
 
@@ -206,9 +180,11 @@ function App() {
                         redirectTo='/signin'
                         hasPermission={isLoggedIn}>
                         <Movies
+                            logout = {handleLogout}
                             loggedIn={isLoggedIn}
                             search={searchAllMovies}
-                            movies={searchResult}
+                            movies={allMovies}
+                            filtredMovies={searchResult}
                             favMovies={favMoviesCards}
                             addMovieToFav={addMovieToFavorite}
                             removeMovieFromFav={removeMovieFromFavorite}
@@ -221,13 +197,24 @@ function App() {
                         path="/saved-movies"
                         redirectTo='/signin'
                         hasPermission={isLoggedIn}>
-                        <SavedMovies/>
+                        <SavedMovies
+                            logout = {handleLogout}
+                            loggedIn={isLoggedIn}
+                            search={searchAllMovies}
+                            movies={favMoviesCards}
+                            filtredMovies={searchResult}
+                            favMovies={favMoviesCards}
+                            addMovieToFav={addMovieToFavorite}
+                            removeMovieFromFav={removeMovieFromFavorite}
+                            getFavMovies={getFavMovies}
+                        />
                     </ProtectedRoute>
                     <ProtectedRoute
                         path="/profile"
                         redirectTo='/signin'
                         hasPermission={isLoggedIn}>
                         <Profile
+                            logout = {handleLogout}
                             handleUpdateUserData={handleUpdateUserData}
                         />
                     </ProtectedRoute>

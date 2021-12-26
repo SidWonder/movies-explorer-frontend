@@ -1,4 +1,4 @@
-const baseUrl = ' https://api.nomoreparties.co/beatfilm-movies';
+const baseUrl = 'https://api.nomoreparties.co/beatfilm-movies';
 
 class Api {
     constructor(url) {

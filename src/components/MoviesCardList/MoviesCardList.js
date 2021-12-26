@@ -4,42 +4,53 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList({cards, pageType, addMovieToFav,favMovies ,removeMovieFromFav}) {
-
     function isFavorite(id){
-        console.log(id, favMovies)
-        if(favMovies){
-            // console.log(id, favMovies.split(';').includes(''+id))
-            return favMovies.split(';').includes(''+id);
+        const isFavorite = favMovies.filter(x=> x.movieId === id)
+        if(isFavorite.length) {
+            return true;
+        } else {
+           return false;
         }
+    }
 
+    function handleAddToFavorite(movie){
+        addMovieToFav(movie);
+    }
 
+    function handleRemoveFromFavorite(movie){
+        if(movie){
+           return removeMovieFromFav(movie._id);
+        }
+        const movieIdToRemove = favMovies.filter(x=> x.movieId === movie.id)[0]._id;
+       return removeMovieFromFav(movieIdToRemove);
     }
 
     return (
         <section className="MoviesCardList">
         { pageType === 'allMovies' &&
-                cards.map((x, i) => {
+                cards?.map((x, i) => {
                         return (
                     <MoviesCard movieName={x.nameRU}
                                 movieLength={x.duration}
                                 movieCover={`https://api.nomoreparties.co${x.image.url}`}
                                 movieInFavorite={isFavorite(x.id)}
-                                addMovieToFav={addMovieToFav}
-                                removeMovieFromFav={removeMovieFromFav}
+                                addMovieToFav={()=>handleAddToFavorite(x)}
+                                removeMovieFromFav={()=>handleRemoveFromFavorite(x)}
                                 type={pageType}
                                 movieId={x.id}
                                 key={x.id}
                                 />
                 )})
         }
-        {pageType === 'favorites' && cards.filter(y=> y.movieInFavorite).map((x, i) => {
+        {pageType === 'favorites' && cards?.map((x) => {
                 return (
-                    <MoviesCard movieName={x.movieName}
-                                movieLength={x.movieLength}
-                                movieCover={x.movieCover}
-                                movieInFavorite={x.movieInFavorite}
+                    <MoviesCard movieName={x.nameRU}
+                                movieLength={x.duration}
+                                movieCover={x.image}
+                                movieInFavorite={true}
+                                removeMovieFromFav={()=>handleRemoveFromFavorite(x)}
                                 type={pageType}
-                                key={i}
+                                key={x.id}
                     />
                 )})}
 

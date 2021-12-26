@@ -1,65 +1,27 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./SavedMovies.css";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
+import {showMoviesSettings} from "../../utils/Constants";
 
-function SavedMovies() {
-    const [cards, setCards] = React.useState([
-        {
-            movieName:"В погоне за Бенкси",
-            movieLength:"27",
-            movieInFavorite:true,
-            movieCover:"https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-        },
-        {
-            movieName:"В погоне за Бенкси",
-            movieLength:"27",
-            movieInFavorite:false,
-            movieCover:"https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-        },
-        {
-            movieName:"В погоне за Бенкси",
-            movieLength:"27",
-            movieInFavorite:false,
-            movieCover:"https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-        },
-        {
-            movieName:"В погоне за Бенкси",
-            movieLength:"27",
-            movieInFavorite:false,
-            movieCover:"https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-        },
-        {
-            movieName:"В погоне за Бенкси",
-            movieLength:"27",
-            movieInFavorite:true,
-            movieCover:"https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-        },
-        {
-            movieName:"В погоне за Бенкси",
-            movieLength:"27",
-            movieInFavorite:true,
-            movieCover:"https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-        },    {
-            movieName:"В погоне за Бенкси",
-            movieLength:"27",
-            movieInFavorite:true,
-            movieCover:"https://globalgamejam.org/sites/default/files/styles/game_sidebar__normal/public/game/featured_image/promo_5.png"
-        },
+function SavedMovies({search, getFavMovies,removeMovieFromFav ,loggedIn, filtredMovies, movies}) {
+    const [moviesForRender, setMoviesForRender] = useState([]);
 
-
-
-
-
-    ]);
-
-
+    useEffect(() => {
+        setMoviesForRender(movies)
+    }, [moviesForRender])
     return (
         <section className="SavedMovies">
             <Header pageType={'savedMovies'}/>
-            <SearchForm />
-            <MoviesCardList cards={cards} pageType={'favorites'}/>
+            <SearchForm
+                pageType={'savedMovies'}
+                search={search}
+            />
+            <MoviesCardList cards={moviesForRender}
+                            favMovies={moviesForRender}
+                            removeMovieFromFav={removeMovieFromFav}
+                            pageType={'favorites'}/>
         </section>
     )
 }
