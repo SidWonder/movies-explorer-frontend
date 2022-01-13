@@ -1,7 +1,7 @@
 import React from "react";
 import './ValidationError.css'
 
-function ValidationError({errorText, formType}){
+function ValidationError({errorText}){
     return(
         <p className="ValidationError">{errorText}</p>
     );

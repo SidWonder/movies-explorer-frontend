@@ -1,4 +1,4 @@
-import { Route, Redirect } from 'react-router-dom';
+import { React, Route, Redirect } from 'react-router-dom';
 
 function ProtectedRoute({ redirectTo, hasPermission, children }) {
     return (

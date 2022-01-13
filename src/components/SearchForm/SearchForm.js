@@ -2,7 +2,6 @@ import { React, useEffect, useRef, useState} from "react";
 import "./SearchForm.css";
 
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import MovieApi from "../../utils/MoviesApi";
 import ValidationError from "../ValidationError/ValidationError";
 import MoviesApi from "../../utils/MoviesApi";
 import {PAGE_TYPES} from "../../utils/Constants";

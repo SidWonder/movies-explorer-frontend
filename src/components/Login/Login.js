@@ -7,14 +7,13 @@ function Login({handleLogin, loggedIn}) {
 
     const history = useHistory();
 
-    const [email, setEmail] = useState(''); 
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [allowSubmit, setAllowSubmit] = useState(false);
 
-    const handleInputError = (input, message, isError) => {
+    const handleInputError = (input, message) => {
         const inputError = document.getElementById(`${input.id}Error`);
         inputError.textContent = message;
-        inputError.classList.toggle('spf__error-message_shown', isError);
     };
 
     const checkFormValidity = () => {

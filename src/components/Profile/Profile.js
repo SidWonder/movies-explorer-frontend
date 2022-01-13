@@ -3,9 +3,9 @@ import './Profile.css';
 import Header from "../Header/Header";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function Profile({handleUpdateUserData, logout, loggetIn}) {
+function Profile({handleUpdateUserData, logout}) {
 
-    const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+    const { currentUser } = useContext(CurrentUserContext);
     const { email, name } = currentUser;
     const [nameInput, setName] = useState('');
     const [emailInput, setEmail] = useState('');
@@ -27,19 +27,19 @@ function Profile({handleUpdateUserData, logout, loggetIn}) {
         inputError.textContent = message;
         inputError.classList.toggle('profile__error-message_shown', isError);
         setAllowSubmit(false);
-    };
+    }
 
     function checkFormValidity () {
         const inputs = Array.from(document.getElementsByTagName('input'));
         const areAllInputsValid = inputs.every((input) => input.validity.valid);
         setAllowSubmit(areAllInputsValid);
-    };
+    }
 
     function handleFormSubmit (event){
         event.preventDefault();
         console.log(nameInput, emailInput)
         handleUpdateUserData( nameInput, emailInput);
-    };
+    }
 
     function validateInputOnChange (event) {
         const input = event.target;
@@ -51,7 +51,7 @@ function Profile({handleUpdateUserData, logout, loggetIn}) {
             handleInputError(input, input.validationMessage, true);
         }
         checkFormValidity();
-    };
+    }
 
 
     function setInputListeners () {
@@ -76,7 +76,7 @@ function Profile({handleUpdateUserData, logout, loggetIn}) {
                 emailInput.setCustomValidity('');
             }
         });
-    };
+    }
 
     useEffect(() => {
         setInputListeners();

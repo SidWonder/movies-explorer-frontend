@@ -5,7 +5,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 
 const {ALL_MOVIES, SAVED_MOVIES} = PAGE_TYPES;
 
-function MoviesCardList({cards, pageType, addMovieToFav,favMovies ,removeMovieFromFav, getFavMovies}) {
+function MoviesCardList({cards, pageType, addMovieToFav,favMovies ,removeMovieFromFav}) {
     function isFavorite(id){
         const isFavorite = favMovies.filter(x=> x.movieId === id)
         if(isFavorite.length) {
@@ -34,7 +34,7 @@ function MoviesCardList({cards, pageType, addMovieToFav,favMovies ,removeMovieFr
         <section className="MoviesCardList">
             {console.log("MoviesCardList", pageType === ALL_MOVIES, cards === 'nullSearch')}
         { pageType === ALL_MOVIES &&
-                cards?.map((x, i) => {
+                cards?.map((x) => {
                         return (
                     <MoviesCard movieName={x.nameRU}
                                 movieLength={x.duration}

@@ -1,7 +1,6 @@
 import './App.css';
 import {React, useState, useEffect, useRef} from 'react';
 import {
-    Routes,
     Route,
     useHistory,
     Switch,
@@ -21,7 +20,6 @@ import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 
-import MoviesApi from "../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
 import MainApi from "../../utils/MainApi";
 
@@ -40,7 +38,7 @@ function App() {
     const path = currentLocation.pathname;
 
 
-    const {ALL_MOVIES, SAVED_MOVIES} = PAGE_TYPES;
+    const {SAVED_MOVIES} = PAGE_TYPES;
 
     const firstRender = useRef(true);
     useEffect(() => {
@@ -92,7 +90,7 @@ function App() {
             .catch((e) => {
                 console.log(e);
             });
-    };
+    }
 
     function handleRegister(name, email, password) {
         return mainApi.createUser(name, email, password)
@@ -105,7 +103,7 @@ function App() {
                     setIsLoggedIn(true);
                     localStorage.setItem('token', data.token);
                     mainApi.setToken(data.token);
-                    history.push("/movies");               
+                    history.push("/movies");
                 }
             })
             .then(()=> tokenChecker())
@@ -115,7 +113,7 @@ function App() {
     function handleUpdateUserData(name, email) {
         mainApi
             .editUserData({ name, email }, token)
-            .then((res) => {
+            .then(() => {
                 tokenChecker();
             })
             .catch((e) => console.log(e));
@@ -126,7 +124,7 @@ function App() {
         setIsLoggedIn(false);
         history.push("/");
         setCurrentUser({});
-    };
+    }
 
     return (
         <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
@@ -142,7 +140,7 @@ function App() {
                     </Route>
                     <Route
                         path="/signup">
-                        <Register handleRegister={handleRegister} 
+                        <Register handleRegister={handleRegister}
                                     handleLogin={handleLogin}
                                   loggedIn={isLoggedIn}/>
                     </Route>
@@ -153,9 +151,6 @@ function App() {
                         <Movies
                             logout = {handleLogout}
                             loggedIn={isLoggedIn}
-                            // search={searchAllMovies}
-                            // movies={allMovies}
-                            // filtredMovies={searchResult}
                             favMovies={favMoviesCards}
                             addMovieToFav={addMovieToFavorite}
                             removeMovieFromFav={removeMovieFromFavorite}

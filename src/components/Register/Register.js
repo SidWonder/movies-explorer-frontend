@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 
 function Register({handleRegister, handleLogin, loggedIn}) {
 
-    const [error, setError] = useState(false);
+    // const [error, setError] = useState(false);
     const [errorFromApi, setErrorFromApi] = useState(false);
 
     const history = useHistory();
@@ -17,7 +17,7 @@ function Register({handleRegister, handleLogin, loggedIn}) {
 
     const [allowSubmit, setAllowSubmit] = useState(false);
 
-    const handleInputError = (input, message, isError) => {
+    const handleInputError = (input, message) => {
         const inputError = document.getElementById(`${input.id}Error`);
         inputError.textContent = message;
     };
@@ -125,7 +125,6 @@ function Register({handleRegister, handleLogin, loggedIn}) {
                     Имя
                     <input
                         // onChange={handleError}
-                        minLength={2}
                         placeholder="Username"
                         type="text"
                         className="Register__input"
@@ -183,7 +182,7 @@ function Register({handleRegister, handleLogin, loggedIn}) {
                     />
                     <span className="Register__error_text" id="Register__passwordError"></span>
                 </label>
-                <button type="submit" className="Register__button">Зарегистрироваться</button>
+                <button disabled={!allowSubmit} type="submit" className="Register__button">Зарегистрироваться</button>
                 <p className="Register__text">Уже зарегистрированы? <Link to="/signin" className="Register__link">Войти</Link></p>
             </form>
 

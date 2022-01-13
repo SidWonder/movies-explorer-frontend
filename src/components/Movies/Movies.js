@@ -5,12 +5,11 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import Preloader from "../Preloader/Preloader";
-
+import MoviesApi from "utils/MoviesApi";
 import {PAGE_TYPES, showMoviesSettings} from "../../utils/Constants";
-import MoviesApi from "../../utils/MoviesApi";
 
 function Movies({
-                    search, movies, addMovieToFav, removeMovieFromFav, favMovies, getFavMovies, loggedIn,
+                     addMovieToFav, removeMovieFromFav, favMovies,  loggedIn,
                 }) {
 
     const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +22,7 @@ function Movies({
     const [screenWidth, setScreenWidth] = useState(null);
     const [showMoreButton, setShowMoreButton] = useState(false)
 
-    const {ALL_MOVIES, SAVED_MOVIES} = PAGE_TYPES
+    const {ALL_MOVIES} = PAGE_TYPES
     useEffect(() => {
         setScreenWidth(window.innerWidth);
         if (screenWidth <= 760) {
@@ -34,7 +33,6 @@ function Movies({
         }
         if (screenWidth > 900) {
             setMoviesForRenderConfig(showMoviesSettings.large);
-
         }
     }, [screenWidth]);
     useEffect(() => {
@@ -62,12 +60,12 @@ function Movies({
 
     function setNewWidth() {
         setScreenWidth(window.innerWidth);
-    };
+    }
 
 
     function handleShowMore() {
         setMoviesForRender([...moviesForRender, ...filteredMovies.slice(moviesForRender.length, moviesForRender.length + moviesForRenderConfig.addMore),]);
-    };
+    }
 
     function getMoviesFromApi() {
         setIsLoading(true);
@@ -90,7 +88,7 @@ function Movies({
             <SearchForm
                 pageType={ALL_MOVIES}
                 search={setFilteredMovies}
-                // getMoviesFromApi={getMoviesFromApi}
+                getMoviesFromApi={getMoviesFromApi}
                 moviesForSrch={allMoviesArr}
                 setIsLoading={setIsLoading}
             />

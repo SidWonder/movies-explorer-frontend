@@ -1,7 +1,6 @@
-import {React, useRef, useEffect} from "react";
+import {React, useRef} from "react";
 import './Navigation.css';
 import {Link} from "react-router-dom";
-import isMobile from "is-mobile";
 
 function Navigation({pageType, mobile, loggedIn}) {
     const menuMobile = useRef(null);
@@ -66,8 +65,8 @@ function Navigation({pageType, mobile, loggedIn}) {
                 || pageType === 'savedMovies'
                 || pageType === 'profile') && !mobile && <>
                 <ul ref={menuMobile}
-                    className={`Navigation__list 
-                                Navigation__list_default 
+                    className={`Navigation__list
+                                Navigation__list_default
                                 Navigation__list_desktop`}
                 >
                     <li className="Navigation__listItem_default
