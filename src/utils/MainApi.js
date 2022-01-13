@@ -4,7 +4,6 @@ const baseUrl = 'https://api.sidwonder.diploma.nomoredomains.rocks';
 class MainApi {
     constructor({baseUrl}) {
         this._baseUrl = baseUrl;
-        this._token = localStorage.getItem("token");
         this._headers =   {
             Accept: 'application/json',
                 'Content-Type': 'application/json',
@@ -17,24 +16,30 @@ class MainApi {
     }
 
     setToken(token) {
-        this._token = token;
+        console.log(this._token)
+        
+        return this._token = token;
     }
 
     createUser(name, email, password) {
         return fetch(`${this._baseUrl}/signup`, {
             method: "POST",
-            headers: this._headers,
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
             credentials: 'include',
             body: JSON.stringify({ name, password, email }),
         })
-            .then((res) => res)
-            .catch((err) => console.log(err));
     }
 
     login(email, password) {
         return fetch(`${this._baseUrl}/signin`, {
             method: "POST",
-            headers: this._headers,
+            headers: {
+                Accept: 'application/json',
+                    'Content-Type': 'application/json',
+            },
             body: JSON.stringify({ email, password }),
             credentials: "include",
         })
@@ -55,14 +60,19 @@ class MainApi {
             });
     }
 
-    getUserData() {
+    getUserData(token) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: "GET",
-            headers:  this._headersAuth,
+            headers:  {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
             credentials: "include",
         })
             .then((response) => response)
             .then((res) => {
+                console.log( this._headersAuth)
                 if (res.status === 401) {
                     throw new Error(
                         "Токен не передан или передан не в том формате"
@@ -78,10 +88,14 @@ class MainApi {
             });
     }
 
-    editUserData({ name, email }) {
+    editUserData({ name, email }, token) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: "PATCH",
-            headers: this._headersAuth,
+            headers:  {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
             credentials: "include",
             body: JSON.stringify({ name, email }),
         })
@@ -89,23 +103,31 @@ class MainApi {
             .catch((err) => console.log(err));
     }
 
-    getFavMovies(){
+    getFavMovies(token){
         return fetch(`${this._baseUrl}/movies`, {
             method: "GET",
-            headers: this._headersAuth,
+            headers:  {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
             credentials: "include",
         })
             .then((response) => response.json())
             .catch((e) => console.log(e));
     }
-    addToFav(movie) {
+    addToFav(movie, token) {
         return fetch(`${this._baseUrl}/movies`, {
             method: "POST",
-            headers: this._headersAuth,
+            headers:  {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
             credentials: "include",
             body: JSON.stringify({
                 movieId: movie.id,
-                country: movie.country,
+                country: movie.country || 'unknown',
                 director: movie.director,
                 duration: movie.duration,
                 year: movie.year,
@@ -114,7 +136,7 @@ class MainApi {
                 thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
                 trailer: movie.trailerLink,
                 nameRU: movie.nameRU,
-                nameEN: movie.nameEN,
+                nameEN: movie.nameEN || 'unknown',
             }),
         })
             .then((response) => {
@@ -128,10 +150,14 @@ class MainApi {
             });
     }
 
-    removeFromFav(id) {
+    removeFromFav(id, token) {
         return fetch(`${this._baseUrl}/movies/${id}`, {
             method: "DELETE",
-            headers: this._headersAuth,
+            headers:  {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
             credentials: "include",
         });
     }

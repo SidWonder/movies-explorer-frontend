@@ -84,6 +84,17 @@
 .Register__link:hover {
     opacity: 0.3;
 }
+.Register__error_text {
+    color: red;
+}
+.Register__error_input {
+    color: red;
+}
+
+.Register__error_api {
+    color: red;
+    text-align: center;
+}
 
 @media (min-width:320px) and (max-width: 767px) {
     .Register {

@@ -36,6 +36,10 @@
     color: #FFFFFF;
 }
 
+.SearchForm__input__error {
+    border: 1.5px solid red;
+}
+
 .SearchForm__button {
     position: absolute;
     right: 7px;

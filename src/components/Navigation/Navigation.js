@@ -3,8 +3,7 @@ import './Navigation.css';
 import {Link} from "react-router-dom";
 import isMobile from "is-mobile";
 
-function Navigation({pageType, mobile}) {
-
+function Navigation({pageType, mobile, loggedIn}) {
     const menuMobile = useRef(null);
 
     const menuViewHandle = () => {
@@ -22,18 +21,20 @@ function Navigation({pageType, mobile}) {
                 <ul className="Navigation__list Navigation__list_main">
                     <li className="Navigation__listItem_main
                                    Navigation__listItem_registration">
-                        <Link to="/signup" className="Navigation__link
-                                                Navigation__link_auth">Регистрация</Link>
+                        {loggedIn ?
+                                <Link to="/movies" className="Navigation__link Navigation__link_auth">Фильмы</Link>
+                            :   <Link to="/signup" className="Navigation__link Navigation__link_auth">Регистрация</Link>}
                     </li>
                     <li className="Navigation__listItem_main
                                 Navigation__listItem_login">
-                        <Link to="/signin" className="Navigation__link
-                                           Navigation__link_auth
-                                           Navigation__link_auth_active">Войти</Link>
+                        {loggedIn ?
+                            <Link to="/saved-movies" className="Navigation__link Navigation__link_auth">Сохраненные фильмы</Link> :
+                            <Link to="/signin" className="Navigation__link Navigation__link_auth Navigation__link_auth_active">Войти</Link>
+                        }
                     </li>
             </ul>}
 
-            {(pageType === 'movies'
+            {(pageType === 'allMovies'
                 || pageType === 'savedMovies'
                 || pageType === 'profile') && mobile && <>
                 <button onClick={menuViewHandle} className="Navigation__button_menuToggle"></button>
@@ -61,7 +62,7 @@ function Navigation({pageType, mobile}) {
             </>
             }
 
-            {(pageType === 'movies'
+            {(pageType === 'allMovies'
                 || pageType === 'savedMovies'
                 || pageType === 'profile') && !mobile && <>
                 <ul ref={menuMobile}
@@ -92,43 +93,7 @@ function Navigation({pageType, mobile}) {
             }
         </nav>
 
-        //     {(pageType === 'movies'
-        //         || pageType === 'savedMovies'
-        //         || pageType === 'profile')
-        //         && <>
-        //             <ul className={`Navigation__list Navigation__list_default`}>
-        //
-        //                 <li className="Navigation__listItem">
-        //                     <Link to="/" className="Navigation__link Navigation__link_logo">
-        //                     </Link>
-        //                 </li>
-        //                 <li className="Navigation__listItem">
-        //                     <Link to="/movies"  className="Navigation__link
-        //                                  Navigation__link_movies">Фильмы</Link>
-        //                 </li>
-        //                 <li className="Navigation__listItem">
-        //                     <Link to="/saved-movies"  className="Navigation__link
-        //                                   Navigation__link_savedMovies">Сохраненные фильмы</Link>
-        //                 </li>
-        //                 <li className="Navigation__listItem">
-        //                     <Link to="/profile"  className="Navigation__link
-        //                                   Navigation__link_account">Аккаунт</Link>
-        //                 </li>
-        //
-        //             </ul>
-        //         </>
-        //     }
-        //     {
-        //         (pageType === 'login' ||  pageType === 'register')  && <ul className="Navigation__list">
-        //
-        //             <li className="Navigation__listItem">
-        //                 <Link to="/"  className="Navigation__link Navigation__link_logo">
-        //                 </Link>
-        //             </li>
-        //         </ul>
-        //     }
-        //
-        // </nav>
+
     );
 //
 }

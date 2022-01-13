@@ -1,4 +1,5 @@
 import React from "react";
+import './ValidationError.css'
 
 function ValidationError({errorText, formType}){
     return(

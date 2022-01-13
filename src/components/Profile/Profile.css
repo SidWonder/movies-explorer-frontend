@@ -13,8 +13,19 @@
 #Profile__email{
     background: none;
     border: none;
+    text-align: right;
 }
 
+.Profile__textContainer {
+    position: relative;
+}
+
+.profile__error-message {
+    position: absolute;
+    color: red;
+    font-size: 10px;
+    top: 50px;
+}
 
 
 .Profile__title {

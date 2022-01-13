@@ -6,29 +6,24 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import Preloader from "../Preloader/Preloader";
 
-function Movies({search, movies, addMovieToFav, removeMovieFromFav, favMovies, getFavMovies, loggedIn, filtredMovies}) {
-    console.log(filtredMovies)
-    const showMoviesSettings = {
-        large: {
-            onStart: 12,
-            addMore: 3,
-        },
-        medium: {
-            onStart: 8,
-            addMore: 2,
-        },
-        small: {
-            onStart: 5,
-            addMore: 2,
-        },
-    };
+import {PAGE_TYPES, showMoviesSettings} from "../../utils/Constants";
+import MoviesApi from "../../utils/MoviesApi";
+
+function Movies({
+                    search, movies, addMovieToFav, removeMovieFromFav, favMovies, getFavMovies, loggedIn,
+                }) {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [moviesForRender, setMoviesForRender] = useState([]);
+    const [moviesForRender, setMoviesForRender] = useState( []);
     const [moviesForRenderConfig, setMoviesForRenderConfig] = useState(showMoviesSettings.large);
+    const [allMoviesArr, setAllMoviesArr] = useState(JSON.parse(localStorage.getItem('beatFilmDB')) || []);
+
+    const [filteredMovies, setFilteredMovies] = useState(JSON.parse(localStorage.getItem('searchResults'))|| [])
+
     const [screenWidth, setScreenWidth] = useState(null);
     const [showMoreButton, setShowMoreButton] = useState(false)
 
+    const {ALL_MOVIES, SAVED_MOVIES} = PAGE_TYPES
     useEffect(() => {
         setScreenWidth(window.innerWidth);
         if (screenWidth <= 760) {
@@ -43,10 +38,11 @@ function Movies({search, movies, addMovieToFav, removeMovieFromFav, favMovies, g
         }
     }, [screenWidth]);
     useEffect(() => {
-        setMoviesForRender(filtredMovies?.slice(0, moviesForRenderConfig.onStart));
+        setMoviesForRender(filteredMovies?.slice(0, moviesForRenderConfig.onStart));
         setShowMoreButton(true);
-    }, [filtredMovies, moviesForRenderConfig.onStart]);
-    useEffect(()=>{},[filtredMovies])
+    }, [filteredMovies, moviesForRenderConfig.onStart]);
+    useEffect(() => {
+    }, [filteredMovies, allMoviesArr])
     useEffect(() => {
         function handleScreenResize() {
             setTimeout(setNewWidth, 600);
@@ -59,54 +55,62 @@ function Movies({search, movies, addMovieToFav, removeMovieFromFav, favMovies, g
         };
     }, []);
     useEffect(() => {
-        if (filtredMovies?.length === moviesForRender?.length) {
+        if (filteredMovies?.length === moviesForRender?.length) {
             setShowMoreButton(false);
         }
-    }, [filtredMovies, moviesForRender]);
-    function setNewWidth () {
+    }, [filteredMovies, moviesForRender]);
+
+    function setNewWidth() {
         setScreenWidth(window.innerWidth);
     };
 
 
     function handleShowMore() {
-        setMoviesForRender([
-            ...moviesForRender,
-            ...filtredMovies.slice(
-                moviesForRender.length,
-                moviesForRender.length + moviesForRenderConfig.addMore
-            ),
-        ]);
+        setMoviesForRender([...moviesForRender, ...filteredMovies.slice(moviesForRender.length, moviesForRender.length + moviesForRenderConfig.addMore),]);
     };
 
-    return (
-        <section className="Movies">
+    function getMoviesFromApi() {
+        setIsLoading(true);
+        console.log('allMoviesArr', allMoviesArr);
+        if (!allMoviesArr.length) {
+            return MoviesApi.getData()
+                .then(res => {
+                    setAllMoviesArr(res);
+                    localStorage.setItem('beatFilmDB', JSON.stringify(res));
+                })
+                .then(() => setIsLoading(false))
+        }
+        setIsLoading(false);
+    }
+
+    return (<section className="Movies">
             <Header
                 loggedIn={loggedIn}
-                pageType={'all-movies'}/>
+                pageType={ALL_MOVIES}/>
             <SearchForm
-                pageType={'allMovies'}
-                search={search}/>
-            {filtredMovies && <MoviesCardList
+                pageType={ALL_MOVIES}
+                search={setFilteredMovies}
+                // getMoviesFromApi={getMoviesFromApi}
+                moviesForSrch={allMoviesArr}
+                setIsLoading={setIsLoading}
+            />
+            {(moviesForRender.length && moviesForRender !== 'nullSearch') && <MoviesCardList
                 cards={moviesForRender}
                 favMovies={favMovies}
-                pageType={'allMovies'}
+                pageType={ALL_MOVIES}
                 addMovieToFav={addMovieToFav}
                 removeMovieFromFav={removeMovieFromFav}
             />}
-            {filtredMovies === null &&
-            <p className='Movies__null-search'>Ничего не найдено</p>}
-            {isLoading && <Preloader />}
-            {filtredMovies?.length > 0 && showMoreButton && (
-                <button
+            {moviesForRender === 'nullSearch' && <p className='Movies__null-search'>Ничего не найдено</p>}
+            {isLoading && <Preloader/>}
+            {filteredMovies?.length > 0 && showMoreButton && (<button
                     className="Movies__show-more-button"
                     type="button"
                     onClick={handleShowMore}
                 >
                     Ещё
-                </button>
-            )}
-        </section>
-    );
+                </button>)}
+        </section>);
 }
 
 export default Movies;

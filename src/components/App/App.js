@@ -1,5 +1,5 @@
 import './App.css';
-import {React, useState, useEffect} from 'react';
+import {React, useState, useEffect, useRef} from 'react';
 import {
     Routes,
     Route,
@@ -25,96 +25,67 @@ import MoviesApi from "../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
 import MainApi from "../../utils/MainApi";
 
-function App() {
+import {PAGE_TYPES} from "../../utils/Constants";
 
-    const [allMovies, setAllMovies] = useState(JSON.parse(localStorage.getItem('beatFilmDB')) || null);
-    const [favMoviesID, setFavMoviesID] = useState(localStorage.getItem('favMovies') || null);
-    const [favMoviesCards, setFavMoviesCards] = useState([]);
-    const [searchResult, setSearchResult] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
+function App() {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [currentUser, setCurrentUser] = useState({});
+    const [favMoviesCards, setFavMoviesCards] = useState([]);
+
 
     const history = useHistory();
-    const token = localStorage.getItem("token");
-
+    let token = localStorage.getItem('token');
     const currentLocation = useLocation();
     const path = currentLocation.pathname;
 
-    useEffect(() => {
-        tryToFilter();
-    }, [searchQuery])
 
+    const {ALL_MOVIES, SAVED_MOVIES} = PAGE_TYPES;
+
+    const firstRender = useRef(true);
     useEffect(() => {
-        if (token) {
+        if (firstRender.current) {
             tokenChecker();
-        } else {
-            console.log('чет не работает авторизация с токеном');
+            firstRender.current = false;
         }
-    }, []);
+    });
 
+    useEffect(() => {
+        token = localStorage.getItem('token');
+    },[currentUser]);
 
     function addMovieToFavorite(movie) {
-        const ids = `${favMoviesID};${movie.id}`;
-        setFavMoviesID(ids);
-        MainApi.addToFav(movie)
-            .then(res => getFavMovies())
+        MainApi.addToFav(movie, token)
+            .then(() => getFavMovies())
     }
 
     function removeMovieFromFavorite(movieID) {
-        MainApi.removeFromFav(movieID)
-            .then(res=> getFavMovies())
-    }
 
-    function searchAllMovies(searchText, pageType) {
-        console.log('searchWasCalled', searchText)
-        setSearchQuery(searchText);
-        if (!allMovies) {
-            MoviesApi.getData()
-                .then(res => {
-                    setAllMovies(res);
-                    localStorage.setItem('beatFilmDB', JSON.stringify(res));
-                    tryToFilter(pageType);
-                })
-                .catch(err => console.log(err))
-        }
-
-    }
-
-    function tryToFilter(pageType) {
-        const searchSource = pageType === 'AllMovies' ? allMovies : searchResult;
-        if (searchSource) {
-            const regex2 = new RegExp(searchQuery, "gi");
-            const searchRes = searchSource.filter(x => {
-                return x.nameRU.match(regex2)
-                    || x.nameEN && x.nameEN.match(regex2)
-                    || x.description && x.description.match(regex2)
-            });
-            if (searchRes.length) {
-                setSearchResult(searchRes);
-            } else {
-                setSearchResult(null);
-            }
-        }
+        MainApi.removeFromFav(movieID, token)
+            .then(()=> getFavMovies())
     }
 
     function tokenChecker() {
+        const token = localStorage.getItem('token');
         if(token) {
             setIsLoggedIn(true);
             history.push(path);
-            mainApi.getUserData()
+            mainApi.setToken(token);
+            mainApi.getUserData(token)
                 .then((res) => {
-                    setCurrentUser(res);
+                    const data = res.user ? res.user : {};
+                    setCurrentUser(data);
                     getFavMovies();
                 })
+                .catch((e) => console.log(e));
         } else {
             return;
         }
     }
 
-    const getFavMovies = () => {
-        mainApi.getFavMovies()
+    function getFavMovies () {
+        const token = localStorage.getItem('token');
+        mainApi.getFavMovies(token)
             .then(res => {
                 setFavMoviesCards(res);
             })
@@ -124,7 +95,7 @@ function App() {
     };
 
     function handleRegister(name, email, password) {
-        return mainApi.createUser(name, email, password);
+        return mainApi.createUser(name, email, password)
     }
 
     function handleLogin(email, password) {
@@ -133,18 +104,17 @@ function App() {
                 if (data.token) {
                     setIsLoggedIn(true);
                     localStorage.setItem('token', data.token);
-                    tokenChecker();
                     mainApi.setToken(data.token);
-                    history.push("/movies");
-                    setCurrentUser(data);
+                    history.push("/movies");               
                 }
             })
+            .then(()=> tokenChecker())
             .catch((err) => console.log(err));
     }
 
-    function handleUpdateUserData({name, email}) {
+    function handleUpdateUserData(name, email) {
         mainApi
-            .editUserData({ name, email })
+            .editUserData({ name, email }, token)
             .then((res) => {
                 tokenChecker();
             })
@@ -152,9 +122,7 @@ function App() {
     }
 
     function handleLogout () {
-        localStorage.removeItem("token");
-        // localStorage.removeItem("moviesList");
-        localStorage.removeItem("searchQuery");
+        localStorage.clear();
         setIsLoggedIn(false);
         history.push("/");
         setCurrentUser({});
@@ -165,15 +133,18 @@ function App() {
             <div className="App">
                 <Switch>
                     <Route exact path="/">
-                        <Main/>
+                        <Main  loggedIn={isLoggedIn}/>
                     </Route>
 
                     <Route path="/signin">
-                        <Login handleLogin={handleLogin}/>
+                        <Login handleLogin={handleLogin}
+                               loggedIn={isLoggedIn}/>
                     </Route>
                     <Route
                         path="/signup">
-                        <Register handleRegister={handleRegister} handleLogin={handleLogin}/>
+                        <Register handleRegister={handleRegister} 
+                                    handleLogin={handleLogin}
+                                  loggedIn={isLoggedIn}/>
                     </Route>
                     <ProtectedRoute
                         path='/movies'
@@ -182,9 +153,9 @@ function App() {
                         <Movies
                             logout = {handleLogout}
                             loggedIn={isLoggedIn}
-                            search={searchAllMovies}
-                            movies={allMovies}
-                            filtredMovies={searchResult}
+                            // search={searchAllMovies}
+                            // movies={allMovies}
+                            // filtredMovies={searchResult}
                             favMovies={favMoviesCards}
                             addMovieToFav={addMovieToFavorite}
                             removeMovieFromFav={removeMovieFromFavorite}
@@ -199,15 +170,14 @@ function App() {
                         hasPermission={isLoggedIn}>
                         <SavedMovies
                             logout = {handleLogout}
+                            setFavMoviesCards={setFavMoviesCards}
                             loggedIn={isLoggedIn}
-                            search={searchAllMovies}
                             movies={favMoviesCards}
-                            filtredMovies={searchResult}
-                            favMovies={favMoviesCards}
-                            addMovieToFav={addMovieToFavorite}
                             removeMovieFromFav={removeMovieFromFavorite}
                             getFavMovies={getFavMovies}
+                            pageType = {SAVED_MOVIES}
                         />
+                        <Footer />
                     </ProtectedRoute>
                     <ProtectedRoute
                         path="/profile"
@@ -216,6 +186,7 @@ function App() {
                         <Profile
                             logout = {handleLogout}
                             handleUpdateUserData={handleUpdateUserData}
+                            loggedIn={isLoggedIn}
                         />
                     </ProtectedRoute>
                     <Route path="/*">

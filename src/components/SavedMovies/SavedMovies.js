@@ -3,25 +3,33 @@ import "./SavedMovies.css";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
-import {showMoviesSettings} from "../../utils/Constants";
+import {PAGE_TYPES} from "../../utils/Constants";
 
-function SavedMovies({search, getFavMovies,removeMovieFromFav ,loggedIn, filtredMovies, movies}) {
-    const [moviesForRender, setMoviesForRender] = useState([]);
+function SavedMovies({logout, removeMovieFromFav ,loggedIn, movies, getFavMovies}) {
 
+    const {SAVED_MOVIES} = PAGE_TYPES;
+
+    console.log(movies)
+    const [moviesForRender, setMoviesForRender] = useState( []);
     useEffect(() => {
         setMoviesForRender(movies)
-    }, [moviesForRender])
+    }, [movies])
     return (
         <section className="SavedMovies">
-            <Header pageType={'savedMovies'}/>
-            <SearchForm
+            <Header
                 pageType={'savedMovies'}
-                search={search}
+                loggedIn={loggedIn}
+                logout={logout}/>
+            <SearchForm
+                pageType={SAVED_MOVIES}
+                search={setMoviesForRender}
+                moviesForSrch={movies}
             />
             <MoviesCardList cards={moviesForRender}
                             favMovies={moviesForRender}
                             removeMovieFromFav={removeMovieFromFav}
-                            pageType={'favorites'}/>
+                            pageType={SAVED_MOVIES}
+                            getFavMovies={getFavMovies}/>
         </section>
     )
 }

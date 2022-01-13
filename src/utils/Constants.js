@@ -12,3 +12,12 @@ export const showMoviesSettings = {
         addMore: 2,
     },
 };
+
+export const PAGE_TYPES = {
+    ALL_MOVIES: 'allMovies',
+    SAVED_MOVIES: 'savedMovies',
+    LOGIN: 'login',
+    REGISTER: 'register',
+
+
+};
