@@ -5,7 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import Preloader from "../Preloader/Preloader";
-import MoviesApi from "utils/MoviesApi";
+import MoviesApi from "../../utils/MoviesApi";
 import { PAGE_TYPES, showMoviesSettings } from "../../utils/Constants";
 
 function Movies({ addMovieToFav, removeMovieFromFav, favMovies, loggedIn }) {
@@ -107,7 +107,9 @@ function Movies({ addMovieToFav, removeMovieFromFav, favMovies, loggedIn }) {
         moviesForSrch={moviesFromApi}
         setIsLoading={setIsLoading}
       />
-      {moviesForRender.length && moviesForRender !== "nullSearch" && (
+      {moviesForRender.length &&
+// @ts-ignore
+      moviesForRender !== "nullSearch" && (
         <MoviesCardList
           cards={moviesForRender}
           favMovies={favMovies}
@@ -116,7 +118,9 @@ function Movies({ addMovieToFav, removeMovieFromFav, favMovies, loggedIn }) {
           removeMovieFromFav={removeMovieFromFav}
         />
       )}
-      {moviesForRender === "nullSearch" && (
+      {
+// @ts-ignore
+      moviesForRender === "nullSearch" && (
         <p className="Movies__null-search">Ничего не найдено</p>
       )}
       {isLoading && <Preloader />}
