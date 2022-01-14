@@ -32,7 +32,7 @@ function MoviesCardList({cards, pageType, addMovieToFav,favMovies ,removeMovieFr
 
     return (
         <section className="MoviesCardList">
-            {console.log("MoviesCardList", pageType === ALL_MOVIES, cards === 'nullSearch')}
+            {console.log(cards, "MoviesCardList")}
         { pageType === ALL_MOVIES &&
                 cards?.map((x) => {
                         return (

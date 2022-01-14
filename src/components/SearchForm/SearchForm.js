@@ -3,22 +3,17 @@ import "./SearchForm.css";
 
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import ValidationError from "../ValidationError/ValidationError";
-import MoviesApi from "../../utils/MoviesApi";
-import {PAGE_TYPES} from "../../utils/Constants";
+import { PAGE_TYPES } from "../../utils/Constants";
 
-function SearchForm({search, pageType, moviesForSrch, setIsLoading}) {
-
-    const {ALL_MOVIES, SAVED_MOVIES} = PAGE_TYPES;
-
-    const [moviesFromApi, setMoviesFromApi] = useState(JSON.parse(localStorage.getItem('beatFilmDB')) || []);
-    const [filteredResults, setFilteredResults] = useState([]);
+function SearchForm({setMovies, moviesForSrch, setIsLoading, pageType}) {
 
     const [valid, setValid] = useState(true);
     const [inputValue, setInputValue] = useState('');
     const [errorText, setErrorText] = useState(null);
     const [shortFilmFlag, setShortFilmFlag] = useState(false);
-
     const isFirstRender = useRef(true);
+
+const {ALL_MOVIES} = PAGE_TYPES
 
     useEffect(() => {
         if (isFirstRender.current) {
@@ -28,36 +23,8 @@ function SearchForm({search, pageType, moviesForSrch, setIsLoading}) {
         }
     }, []);
 
-    useEffect(()=>{
-        // console.log('hook was called')
-        search(filteredResults);
-    }, [filteredResults])
-
-    useEffect(()=>{
-        filterByShortFilmFlag();
-    }, [shortFilmFlag])
-
     useEffect(() => {
-    }, [errorText,shortFilmFlag]);
-
-    function getMoviesFromApi() {
-        const localBeatFilmDB = localStorage.getItem('beatFilmDB');
-        setIsLoading(true);
-        if (!localBeatFilmDB) {
-            return MoviesApi.getData()
-                .then(res => {
-                    setMoviesFromApi(res);
-                    localStorage.setItem('beatFilmDB', JSON.stringify(res));
-                    tryToFilter(inputValue, shortFilmFlag, res)
-                })
-                .then(() => setIsLoading(false))
-                .catch((err=> console.log(err)))
-        } else {
-            // setMoviesFromApi(JSON.parse(localBeatFilmDB));
-            tryToFilter(inputValue, shortFilmFlag, moviesFromApi);
-            setIsLoading(false);
-        }
-    }
+    }, [errorText]);
 
     function handleChange(e) {
         clearError();
@@ -75,20 +42,8 @@ function SearchForm({search, pageType, moviesForSrch, setIsLoading}) {
             setErrorText('Введите не менее трёх букв');
             setValid(false);
         } else {
-           return checkPageBeforeSearch();
+           return tryToFilter(inputValue);
         }
-    }
-
-    function checkPageBeforeSearch() {
-        // console.log(pageType)
-        if(pageType === ALL_MOVIES){
-           return getMoviesFromApi();
-
-        } else if(pageType === SAVED_MOVIES){
-            // console.log('try filter on saved', moviesForSrch, filteredResults);
-            tryToFilter(inputValue, shortFilmFlag, moviesForSrch);
-        }
-
     }
 
     function clearError() {
@@ -96,54 +51,40 @@ function SearchForm({search, pageType, moviesForSrch, setIsLoading}) {
         setValid(true);
     }
 
-    function tryToFilter(searchInputQuery, shortFilmFlag, allMovieCards) {
+    function tryToFilter(searchInputQuery, flag = false) {
+      console.log(shortFilmFlag)
         const pureQuery = searchInputQuery.trim()
         const reg = new RegExp(pureQuery, "gi");
 
-
-        // if(pageType === SAVED_MOVIES) {
-        //     console.log('search in saved', searchInputQuery, shortFilmFlag, allMovieCards)
-        //     return
-        // }
-
-        // const searchResults = allMovieCards.filter(x => {
-        //     return x.nameRU.match(reg)
-        //         || x.nameEN && x.nameEN.match(reg)
-        //         || x.description && x.description.match(reg) &&
-        //         (shortFilmFlag ? x.duration <= 40 : true)
-        // });
-        const searchResults = allMovieCards.filter(x => {
+        let searchResults = moviesForSrch.filter(x => {
             return x.nameRU.match(reg)
                 || (x.nameEN && x.nameEN.match(reg))
                 || (x.description && x.description.match(reg))
         });
+
+        if(flag) {
+          searchResults = searchResults.filter(x => x.duration <= 40)
+        }
+
         if (searchResults.length) {
+          if(pageType === ALL_MOVIES) {
             localStorage.setItem("searchResults", JSON.stringify(searchResults));
             localStorage.setItem("searchQueryYa", JSON.stringify(inputValue));
-            setFilteredResults(searchResults);
+            setIsLoading(false);
+          }
+            setMovies(searchResults);
         } else {
-            return search('nullSearch');
+          if(pageType === ALL_MOVIES) {
+            setIsLoading(false);
+          }
+          setMovies('nullSearch');
         }
     }
-
-    function filterByShortFilmFlag(){
-        console.log('filterByShortFilmFlag',shortFilmFlag, moviesForSrch)
-        if(shortFilmFlag) {
-            const filtredFilms = moviesForSrch.filter(x=> x.duration <= 40)
-            console.log(filtredFilms);
-            setFilteredResults(filtredFilms);
-        } else {
-            setFilteredResults(moviesForSrch);
-        }
-    }
-
 
     function handleToggleShortFilmFlag(flag){
         setShortFilmFlag(flag);
+        tryToFilter(inputValue, flag)
     }
-
-
-
 
     return (
         <form

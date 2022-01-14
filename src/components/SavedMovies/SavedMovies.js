@@ -9,11 +9,12 @@ function SavedMovies({logout, removeMovieFromFav ,loggedIn, movies, getFavMovies
 
     const {SAVED_MOVIES} = PAGE_TYPES;
 
-    console.log(movies)
     const [moviesForRender, setMoviesForRender] = useState( []);
+
     useEffect(() => {
         setMoviesForRender(movies)
-    }, [movies])
+    }, [movies]);
+
     return (
         <section className="SavedMovies">
             <Header
@@ -22,14 +23,17 @@ function SavedMovies({logout, removeMovieFromFav ,loggedIn, movies, getFavMovies
                 logout={logout}/>
             <SearchForm
                 pageType={SAVED_MOVIES}
-                search={setMoviesForRender}
+                setMovies={setMoviesForRender}
                 moviesForSrch={movies}
             />
-            <MoviesCardList cards={moviesForRender}
+               {moviesForRender === "nullSearch" && (
+        <p className="Movies__null-search">Ничего не найдено</p>
+      )}
+            { moviesForRender.length && moviesForRender !== "nullSearch" &&  <MoviesCardList cards={moviesForRender}
                             favMovies={moviesForRender}
                             removeMovieFromFav={removeMovieFromFav}
                             pageType={SAVED_MOVIES}
-                            getFavMovies={getFavMovies}/>
+                            getFavMovies={getFavMovies}/>}
         </section>
     )
 }
