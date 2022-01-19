@@ -17,9 +17,16 @@ class MainApi {
 
     setToken(token) {
         console.log(this._token)
-        
+
         return this._token = token;
     }
+
+    _handleOriginalResponse(res) {
+      if (!res.ok) {
+          return Promise.reject(`Error: ${res.status}`);
+      }
+      return res.json();
+  }
 
     createUser(name, email, password) {
         return fetch(`${this._baseUrl}/signup`, {
@@ -30,7 +37,7 @@ class MainApi {
             },
             credentials: 'include',
             body: JSON.stringify({ name, password, email }),
-        })
+        }).then(this._handleOriginalResponse)
     }
 
     login(email, password) {
@@ -43,21 +50,22 @@ class MainApi {
             body: JSON.stringify({ email, password }),
             credentials: "include",
         })
-            .then((response) => response)
-            .then((data) => {
-                if (data.ok) {
-                    return data.json();
-                } else if (data.status === 400) {
-                    throw new Error('не передано одно из полей');
-                } else if (data.status === 401) {
-                    throw new Error('пользователь с email не найден');
-                } else {
-                    throw new Error('что-то пошло не так');
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        .then(this._handleOriginalResponse)
+            // .then((response) => response)
+            // .then((data) => {
+            //     if (data.ok) {
+            //         return data.json();
+            //     } else if (data.status === 400) {
+            //         throw new Error('не передано одно из полей');
+            //     } else if (data.status === 401) {
+            //         throw new Error('пользователь с email не найден');
+            //     } else {
+            //         throw new Error('что-то пошло не так');
+            //     }
+            // })
+            // .catch((err) => {
+            //     console.log(err);
+            // });
     }
 
     getUserData(token) {
@@ -70,22 +78,21 @@ class MainApi {
             },
             credentials: "include",
         })
-            .then((response) => response)
-            .then((res) => {
-                console.log( this._headersAuth)
-                if (res.status === 401) {
-                    throw new Error(
-                        "Токен не передан или передан не в том формате"
-                    );
-                } else if (res.status === 400) {
-                    throw new Error("Переданный токен некорректен");
-                } else {
-                    return res.json();
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        .then(this._handleOriginalResponse)
+            // .then((res) => {
+            //     if (res.status === 401) {
+            //         throw new Error(
+            //             "Токен не передан или передан не в том формате"
+            //         );
+            //     } else if (res.status === 400) {
+            //         throw new Error("Переданный токен некорректен");
+            //     } else {
+            //         return res.json();
+            //     }
+            // })
+            // .catch((err) => {
+            //     console.log(err);
+            // });
     }
 
     editUserData({ name, email }, token) {
@@ -99,8 +106,7 @@ class MainApi {
             credentials: "include",
             body: JSON.stringify({ name, email }),
         })
-            .then((response) => response)
-            .catch((err) => console.log(err));
+        .then(this._handleOriginalResponse)
     }
 
     getFavMovies(token){
@@ -113,8 +119,7 @@ class MainApi {
             },
             credentials: "include",
         })
-            .then((response) => response.json())
-            .catch((e) => console.log(e));
+        .then(this._handleOriginalResponse)
     }
     addToFav(movie, token) {
         return fetch(`${this._baseUrl}/movies`, {
@@ -139,15 +144,7 @@ class MainApi {
                 nameEN: movie.nameEN || 'unknown',
             }),
         })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-                return Promise.reject(new Error(`${response.status}`));
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        .then(this._handleOriginalResponse)
     }
 
     removeFromFav(id, token) {
@@ -159,7 +156,7 @@ class MainApi {
                 'Authorization': `Bearer ${token}`,
             },
             credentials: "include",
-        });
+        }).then(this._handleOriginalResponse)
     }
 }
 

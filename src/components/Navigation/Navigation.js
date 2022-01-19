@@ -31,6 +31,11 @@ function Navigation({pageType, mobile, loggedIn}) {
                             <Link to="/signin" className="Navigation__link Navigation__link_auth Navigation__link_auth_active">Войти</Link>
                         }
                     </li>
+                    {loggedIn &&
+                    <li className="Navigation__listItem_main Navigation__listItem_profile">
+                        <Link to="/profile" className="Navigation__link
+          Navigation__link_account">Аккаунт</Link>
+                    </li>}
             </ul>}
 
             {(pageType === 'allMovies'

@@ -1,24 +1,28 @@
-import { React, useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState} from "react";
 import "./SearchForm.css";
 
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import ValidationError from "../ValidationError/ValidationError";
-import { PAGE_TYPES } from "../../utils/Constants";
+import { PAGE_TYPES, shortFilmDuration } from "../../utils/Constants";
 
 function SearchForm({setMovies, moviesForSrch, setIsLoading, pageType}) {
 
     const [valid, setValid] = useState(true);
     const [inputValue, setInputValue] = useState('');
     const [errorText, setErrorText] = useState(null);
-    const [shortFilmFlag, setShortFilmFlag] = useState(false);
+    const [shortFilmFlag, setShortFilmFlag] = useState(JSON.parse(localStorage.getItem('shortFilmFlag')) || false);
     const isFirstRender = useRef(true);
 
 const {ALL_MOVIES} = PAGE_TYPES
 
     useEffect(() => {
-        if (isFirstRender.current) {
+        if (isFirstRender.current && pageType === ALL_MOVIES) {
             const savedInputValue = localStorage.getItem("searchQueryYa") || [];
-            if (savedInputValue.length > 0) setInputValue(savedInputValue.replace(/['"]/gi, '').trim());
+            const savedShortFilmFlag =  JSON.parse(localStorage.getItem('shortFilmFlag')) || false;
+            if (savedInputValue.length > 0) {
+              setInputValue(savedInputValue.replace(/['"]/gi, '').trim());
+              console.log('useEffect',savedShortFilmFlag)
+            }
             isFirstRender.current = false;
         }
     }, []);
@@ -36,10 +40,7 @@ const {ALL_MOVIES} = PAGE_TYPES
         e.preventDefault();
 
         if (!inputValue) {
-            setErrorText('Нужно ввести ключевое слово');
-            setValid(false);
-        } else if (inputValue.length < 3) {
-            setErrorText('Введите не менее трёх букв');
+            setErrorText('Нужно ввести ключевое слово для поиска');
             setValid(false);
         } else {
            return tryToFilter(inputValue);
@@ -52,8 +53,8 @@ const {ALL_MOVIES} = PAGE_TYPES
     }
 
     function tryToFilter(searchInputQuery, flag = false) {
-      console.log(shortFilmFlag)
-        const pureQuery = searchInputQuery.trim()
+      console.log(flag)
+        const pureQuery = searchInputQuery.trim();
         const reg = new RegExp(pureQuery, "gi");
 
         let searchResults = moviesForSrch.filter(x => {
@@ -63,13 +64,15 @@ const {ALL_MOVIES} = PAGE_TYPES
         });
 
         if(flag) {
-          searchResults = searchResults.filter(x => x.duration <= 40)
+          searchResults = searchResults.filter(x => x.duration <= shortFilmDuration)
+          localStorage.setItem("searchResults", JSON.stringify(searchResults));
         }
 
         if (searchResults.length) {
           if(pageType === ALL_MOVIES) {
             localStorage.setItem("searchResults", JSON.stringify(searchResults));
             localStorage.setItem("searchQueryYa", JSON.stringify(inputValue));
+            localStorage.setItem('shortFilmFlag', JSON.stringify(flag))
             setIsLoading(false);
           }
             setMovies(searchResults);
@@ -82,6 +85,8 @@ const {ALL_MOVIES} = PAGE_TYPES
     }
 
     function handleToggleShortFilmFlag(flag){
+      console.log(flag)
+      localStorage.setItem('shortFilmFlag',  JSON.stringify(flag))
         setShortFilmFlag(flag);
         tryToFilter(inputValue, flag)
     }
@@ -114,6 +119,7 @@ const {ALL_MOVIES} = PAGE_TYPES
             <FilterCheckbox
                 type="Короткометражки"
                 setFlag={handleToggleShortFilmFlag}
+                currentFlag={shortFilmFlag}
             />
         </form>);
 }

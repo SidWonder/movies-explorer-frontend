@@ -1,4 +1,4 @@
-import {React, useContext, useState, useEffect} from "react";
+import React, { useContext, useState, useEffect} from "react";
 import './Profile.css';
 import Header from "../Header/Header";
 import CurrentUserContext from "../contexts/CurrentUserContext";
@@ -10,15 +10,19 @@ function Profile({handleUpdateUserData, logout}) {
     const [nameInput, setName] = useState('');
     const [emailInput, setEmail] = useState('');
 
+    const [initialName, setInitialName] = useState('');
+    const [initialEmail, setInitialEmail] = useState('')
+
     const [allowSubmit, setAllowSubmit] = useState(false);
+    
 
     useEffect(()=>{
-        console.log('PROFILE SHIIIIT',currentUser);
             setName(name);
             setEmail(email);
+            setInitialName(name);
+            setInitialEmail(email);
 
     }, [currentUser]);
-
 
     function handleInputError  (input, message, isError) {
         console.log(input, message, isError)
@@ -32,13 +36,18 @@ function Profile({handleUpdateUserData, logout}) {
     function checkFormValidity () {
         const inputs = Array.from(document.getElementsByTagName('input'));
         const areAllInputsValid = inputs.every((input) => input.validity.valid);
+        if(initialName === nameInput && initialEmail === emailInput) {
+          setAllowSubmit(false);
+        }
         setAllowSubmit(areAllInputsValid);
     }
 
     function handleFormSubmit (event){
         event.preventDefault();
         console.log(nameInput, emailInput)
-        handleUpdateUserData( nameInput, emailInput);
+        handleUpdateUserData( nameInput, emailInput)
+        setAllowSubmit(false);
+
     }
 
     function validateInputOnChange (event) {

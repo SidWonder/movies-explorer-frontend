@@ -21,3 +21,5 @@ export const PAGE_TYPES = {
 
 
 };
+
+export const shortFilmDuration = 40;

@@ -44,6 +44,7 @@ function MoviesCardList({cards, pageType, addMovieToFav,favMovies ,removeMovieFr
                                 removeMovieFromFav={()=>handleRemoveFromFavorite(x, ALL_MOVIES)}
                                 pageType={ALL_MOVIES}
                                 movieId={x.id}
+                                trailerLink={x.trailerLink || '#'}
                                 key={x.id}
                                 />
                 )})

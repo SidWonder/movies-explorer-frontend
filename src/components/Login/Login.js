@@ -3,13 +3,14 @@ import './Login.css';
 import Header from "../Header/Header";
 import {Link, useHistory} from "react-router-dom";
 
-function Login({handleLogin, loggedIn}) {
+function Login({handleLogin, loggedIn, errorsLogin}) {
 
     const history = useHistory();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [allowSubmit, setAllowSubmit] = useState(false);
+
 
     const handleInputError = (input, message) => {
         const inputError = document.getElementById(`${input.id}Error`);
@@ -25,7 +26,6 @@ function Login({handleLogin, loggedIn}) {
 
     const validateInputOnChange = (e) => {
         const input = e.target;
-
         if (input.validity.valid) {
             handleInputError(input, input.validationMessage, false);
         } else {
@@ -61,12 +61,12 @@ function Login({handleLogin, loggedIn}) {
     useEffect(() => {
         loggedIn && history.push('/movies');
     }, [loggedIn]);
+    
     function submitLogin(event) {
         event.preventDefault();
         const userEmail = event.target.email.value;
         const userPassword = event.target.password.value;
         handleLogin(userEmail, userPassword)
-        setAllowSubmit(false);
     }
 
     return (
@@ -115,6 +115,7 @@ function Login({handleLogin, loggedIn}) {
                         className="Login__input"/>
                     <span className="Login__errorText" id="Login__passwordError"></span>
                 </label>
+                {errorsLogin && <p>{errorsLogin}</p>}
                 <button
                     disabled={!allowSubmit}
                     type="submit"

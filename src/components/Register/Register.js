@@ -94,22 +94,18 @@ function Register({handleRegister, handleLogin, loggedIn}) {
     const userPassword = event.target.password.value;
 
     handleRegister(userName, userEmail, userPassword)
-    .then((data) => {
-        if (data.ok) {
-            return data.json();
-        } else if (data.status === 409) {
+        .then(() => {
+        handleLogin(userEmail, userPassword)
+        setAllowSubmit(false)
+      })
+        .catch((err)=> {
+          if (err === 'Error: 409') {
             setErrorFromApi('Такой пользователь уже существует');
-            throw new Error('Такой пользователь уже существует');
-        }})
-        .then((res) => {
-            if(res && res.status !== 400 && res.status !== 409) {
-                handleLogin(userEmail, userPassword)
-            } else {
-               return new Error();
-            }
+
+        } else if (err === 'Error: 400'){
+          setErrorFromApi('Какая-то ошибка');
+        }
         })
-        .then(()=> setAllowSubmit(false))
-        .catch((err)=> console.log(err))
     }
 
 

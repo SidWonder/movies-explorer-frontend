@@ -102,6 +102,10 @@
 .Profile__button_registration {
     color: #FFFFFF
 }
+
+.Profile__button:disabled {
+  opacity: 0.3;
+}
 .Profile__button_logout {
     color: #EE3465;
     margin-top: 16px;

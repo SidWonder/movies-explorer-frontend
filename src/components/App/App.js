@@ -24,19 +24,20 @@ import mainApi from "../../utils/MainApi";
 import MainApi from "../../utils/MainApi";
 
 import {PAGE_TYPES} from "../../utils/Constants";
+import userEvent from '@testing-library/user-event';
 
 function App() {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [currentUser, setCurrentUser] = useState({});
     const [favMoviesCards, setFavMoviesCards] = useState([]);
+    const [errorsLogin, setErrorLogin] = useState(null);
 
 
     const history = useHistory();
     let token = localStorage.getItem('token');
     const currentLocation = useLocation();
     const path = currentLocation.pathname;
-
 
     const {SAVED_MOVIES} = PAGE_TYPES;
 
@@ -48,6 +49,7 @@ function App() {
         }
     });
 
+    useEffect(()=> {},[errorsLogin])
     useEffect(() => {
         token = localStorage.getItem('token');
     },[currentUser]);
@@ -55,12 +57,14 @@ function App() {
     function addMovieToFavorite(movie) {
         MainApi.addToFav(movie, token)
             .then(() => getFavMovies())
+            .catch(err => console.log(err))
     }
 
     function removeMovieFromFavorite(movieID) {
 
         MainApi.removeFromFav(movieID, token)
             .then(()=> getFavMovies())
+            .catch(err => console.log(err))
     }
 
     function tokenChecker() {
@@ -70,12 +74,23 @@ function App() {
             history.push(path);
             mainApi.setToken(token);
             mainApi.getUserData(token)
-                .then((res) => {
+            .then((res) => {
+              if (res.status === 401) {
+                  throw new Error(
+                      "Токен не передан или передан не в том формате"
+                  );
+              } else if (res.status === 400) {
+                  throw new Error("Переданный токен некорректен");
+              } else {
+                  return res;
+              }
+          })
+          .then((res) => {
                     const data = res.user ? res.user : {};
                     setCurrentUser(data);
                     getFavMovies();
                 })
-                .catch((e) => console.log(e));
+                .catch((err) => console.log(err));
         } else {
             return;
         }
@@ -93,21 +108,40 @@ function App() {
     }
 
     function handleRegister(name, email, password) {
-        return mainApi.createUser(name, email, password)
+        return mainApi.createUser(name, email, password).catch(err=> console.log(err))
     }
 
     function handleLogin(email, password) {
         mainApi.login(email, password)
+            // .then((data) => {
+            //     if (data.token) {
+            //         setIsLoggedIn(true);
+            //         localStorage.setItem('token', data.token);
+            //         mainApi.setToken(data.token);
+            //         history.push("/movies");
+            //     }
+            // })
             .then((data) => {
-                if (data.token) {
-                    setIsLoggedIn(true);
-                    localStorage.setItem('token', data.token);
-                    mainApi.setToken(data.token);
-                    history.push("/movies");
-                }
+              console.log('handleLogin',data)
+
+                  setIsLoggedIn(true);
+                  localStorage.setItem('token', data.token);
+                  mainApi.setToken(data.token);
+                  history.push("/movies");
             })
             .then(()=> tokenChecker())
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              console.log(err)
+              if (err === 400) {
+                setErrorLogin('не передано одно из полей');
+                  throw new Error('не передано одно из полей');
+              } else if (err === 401) {
+                setErrorLogin('Неправильные почта или пароль');
+                  throw new Error('Неправильные почта или пароль');
+              } else {
+              console.log(err);
+          }
+        });
     }
 
     function handleUpdateUserData(name, email) {
@@ -136,6 +170,7 @@ function App() {
 
                     <Route path="/signin">
                         <Login handleLogin={handleLogin}
+                                errorsLogin={errorsLogin}
                                loggedIn={isLoggedIn}/>
                     </Route>
                     <Route

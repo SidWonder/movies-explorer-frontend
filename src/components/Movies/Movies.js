@@ -63,8 +63,11 @@ function Movies({ addMovieToFav, removeMovieFromFav, favMovies, loggedIn }) {
   useEffect(() => {
     getMoviesFromApi()
     const savedFilteredMovies = JSON.parse(localStorage.getItem('searchResults'));
-    if (savedFilteredMovies) {
+    console.log(savedFilteredMovies);
+    if (savedFilteredMovies && savedFilteredMovies.length) {
         setMovies(savedFilteredMovies);
+    } else {
+      setMovies('nullSearch');
     }
 }, [])
 
@@ -99,7 +102,9 @@ function Movies({ addMovieToFav, removeMovieFromFav, favMovies, loggedIn }) {
   }
 
   return (
+
     <section className="Movies">
+      {console.log(moviesForRender)}
       <Header loggedIn={loggedIn} pageType={ALL_MOVIES} />
       <SearchForm
         pageType={ALL_MOVIES}
@@ -109,7 +114,7 @@ function Movies({ addMovieToFav, removeMovieFromFav, favMovies, loggedIn }) {
       />
       {moviesForRender.length &&
 // @ts-ignore
-      moviesForRender !== "nullSearch" && (
+      (moviesForRender !== "nullSearch" && moviesForRender !== "nullS") && (
         <MoviesCardList
           cards={moviesForRender}
           favMovies={favMovies}
@@ -120,7 +125,7 @@ function Movies({ addMovieToFav, removeMovieFromFav, favMovies, loggedIn }) {
       )}
       {
 // @ts-ignore
-      moviesForRender === "nullSearch" && (
+      (moviesForRender === "nullSearch" || moviesForRender === "nullS")  && (
         <p className="Movies__null-search">Ничего не найдено</p>
       )}
       {isLoading && <Preloader />}
