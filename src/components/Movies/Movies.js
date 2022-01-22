@@ -61,7 +61,7 @@ function Movies({ addMovieToFav, removeMovieFromFav, favMovies, loggedIn }) {
   }, [movies, moviesForRender]);
 
   useEffect(() => {
-    getMoviesFromApi()
+    // getMoviesFromApi()
     const savedFilteredMovies = JSON.parse(localStorage.getItem('searchResults'));
     console.log(savedFilteredMovies);
     if (savedFilteredMovies && savedFilteredMovies.length) {
@@ -85,7 +85,7 @@ function Movies({ addMovieToFav, removeMovieFromFav, favMovies, loggedIn }) {
     ]);
   }
 
-  function getMoviesFromApi() {
+  async function getMoviesFromApi() {
     setIsLoading(true);
     const moviesApiList =  localStorage.getItem("beatFilmDB")
     if (!moviesApiList) {
@@ -111,6 +111,7 @@ function Movies({ addMovieToFav, removeMovieFromFav, favMovies, loggedIn }) {
         setMovies={setMovies}
         moviesForSrch={moviesFromApi}
         setIsLoading={setIsLoading}
+        getMoviesFromApi={getMoviesFromApi}
       />
       {moviesForRender.length &&
 // @ts-ignore

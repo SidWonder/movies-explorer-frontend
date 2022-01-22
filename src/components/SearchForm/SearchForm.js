@@ -5,7 +5,7 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import ValidationError from "../ValidationError/ValidationError";
 import { PAGE_TYPES, shortFilmDuration } from "../../utils/Constants";
 
-function SearchForm({setMovies, moviesForSrch, setIsLoading, pageType}) {
+function SearchForm({setMovies, moviesForSrch, setIsLoading, pageType, getMoviesFromApi}) {
 
     const [valid, setValid] = useState(true);
     const [inputValue, setInputValue] = useState('');
@@ -39,6 +39,7 @@ const {ALL_MOVIES} = PAGE_TYPES
         clearError();
         e.preventDefault();
 
+        
         if (!inputValue) {
             setErrorText('Нужно ввести ключевое слово для поиска');
             setValid(false);
