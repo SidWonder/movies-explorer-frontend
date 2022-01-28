@@ -39,7 +39,7 @@ const {ALL_MOVIES} = PAGE_TYPES
         clearError();
         e.preventDefault();
 
-        
+
         if (!inputValue) {
             setErrorText('Нужно ввести ключевое слово для поиска');
             setValid(false);
