@@ -3,8 +3,6 @@ import "./FilterCheckbox.css";
 
 function FilterCheckbox({type, setFlag, currentFlag}){
 
-  console.log(currentFlag )
-
     function handleShowFlagToggle(event){
         const flag = event.target.checked;
         setFlag(flag);

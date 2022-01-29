@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import "./MoviesCard.css";
 
 import {PAGE_TYPES} from "../../utils/Constants";
@@ -32,4 +32,7 @@ function MoviesCard({movieName , movieLength, movieCover, movieInFavorite, pageT
            </div>)
 }
 
-export default MoviesCard;
+const PureMovieCard = memo(MoviesCard);
+
+// export default MoviesCard;
+export default PureMovieCard;

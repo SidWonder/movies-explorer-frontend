@@ -12,7 +12,11 @@
     text-align: center;
     color: #FFFFFF;
 }
-
+.Movies__container {
+  display: flex;
+  border-bottom: 1px solid rgba(170,170,170, 0.2);
+  margin: 0 70px;
+}
 .Movies__show-more-button {
     background-color: #2F2F2F;
     color: #FFFFFF;

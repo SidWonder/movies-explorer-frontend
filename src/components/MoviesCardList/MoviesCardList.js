@@ -1,7 +1,7 @@
 import React from "react";
 import "./MoviesCardList.css";
 import {PAGE_TYPES} from "../../utils/Constants";
-import MoviesCard from "../MoviesCard/MoviesCard";
+import PureMovieCard from "../MoviesCard/MoviesCard";
 
 const {ALL_MOVIES, SAVED_MOVIES} = PAGE_TYPES;
 
@@ -36,7 +36,7 @@ function MoviesCardList({cards, pageType, addMovieToFav,favMovies ,removeMovieFr
         { pageType === ALL_MOVIES &&
                 cards?.map((x) => {
                         return (
-                    <MoviesCard movieName={x.nameRU}
+                    <PureMovieCard movieName={x.nameRU}
                                 movieLength={x.duration}
                                 movieCover={`https://api.nomoreparties.co${x.image.url}`}
                                 movieInFavorite={isFavorite(x.id)}
@@ -51,7 +51,7 @@ function MoviesCardList({cards, pageType, addMovieToFav,favMovies ,removeMovieFr
         }
         {pageType === SAVED_MOVIES && cards?.map((x) => {
                 return (
-                    <MoviesCard movieName={x.nameRU}
+                    <PureMovieCard movieName={x.nameRU}
                                 movieLength={x.duration}
                                 movieCover={x.image}
                                 movieInFavorite={true}
