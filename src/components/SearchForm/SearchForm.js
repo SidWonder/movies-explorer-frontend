@@ -2,7 +2,7 @@ import React, { useRef, useState} from "react";
 import "./SearchForm.css";
 import ValidationError from "../ValidationError/ValidationError";
 
-function SearchForm({searchInputQuery ,setSearchQuery}) {
+function SearchForm({searchInputQuery ,setSearchQuery, searcher=()=>{}}) {
 
     const [valid, setValid] = useState(true);
     const searchInputValue = useRef();

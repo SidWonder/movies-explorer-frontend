@@ -2,3 +2,9 @@
     min-height: 100vh;
     background-color: #202020;
 }
+
+.SavedMovies__container {
+  display: flex;
+  border-bottom: 1px solid rgba(170,170,170, 0.2);
+  margin: 0 70px;
+}

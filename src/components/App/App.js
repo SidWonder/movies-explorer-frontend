@@ -1,5 +1,5 @@
 import './App.css';
-import {React, useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import {
     Route,
     useHistory,
@@ -21,10 +21,8 @@ import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 
 import mainApi from "../../utils/MainApi";
-import MainApi from "../../utils/MainApi";
-
+import {loadJSON, saveJSON} from "../../utils/functions"
 import {PAGE_TYPES} from "../../utils/Constants";
-import userEvent from '@testing-library/user-event';
 
 function App() {
 
@@ -55,14 +53,14 @@ function App() {
     },[currentUser]);
 
     function addMovieToFavorite(movie) {
-        MainApi.addToFav(movie, token)
+      mainApi.addToFav(movie, token)
             .then(() => getFavMovies())
             .catch(err => console.log(err))
     }
 
     function removeMovieFromFavorite(movieID) {
 
-        MainApi.removeFromFav(movieID, token)
+      mainApi.removeFromFav(movieID, token)
             .then(()=> getFavMovies())
             .catch(err => console.log(err))
     }
