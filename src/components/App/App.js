@@ -143,12 +143,11 @@ function App() {
     }
 
     function handleUpdateUserData(name, email) {
-        mainApi
+       return mainApi
             .editUserData({ name, email }, token)
             .then(() => {
                 tokenChecker();
             })
-            .catch((e) => console.log(e));
     }
 
     function handleLogout () {

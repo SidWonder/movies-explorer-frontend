@@ -14,7 +14,8 @@ function Profile({handleUpdateUserData, logout}) {
     const [initialEmail, setInitialEmail] = useState('')
 
     const [allowSubmit, setAllowSubmit] = useState(false);
-    
+    const [updateStatus, setUpdateStatus] = useState(null);
+
 
     useEffect(()=>{
             setName(name);
@@ -25,7 +26,6 @@ function Profile({handleUpdateUserData, logout}) {
     }, [currentUser]);
 
     function handleInputError  (input, message, isError) {
-        console.log(input, message, isError)
         const inputError = document.getElementById(`${input.id}Error`);
         input.classList.toggle('profile__error', isError);
         inputError.textContent = message;
@@ -46,6 +46,10 @@ function Profile({handleUpdateUserData, logout}) {
         event.preventDefault();
         console.log(nameInput, emailInput)
         handleUpdateUserData( nameInput, emailInput)
+          .then(()=>{
+            console.log()
+          })
+          .catch((e) => console.log(e));
         setAllowSubmit(false);
 
     }
@@ -132,6 +136,7 @@ function Profile({handleUpdateUserData, logout}) {
                         ></input>
                         <span className="profile__error-message" id="Profile__emailError" />
                     </label>
+                  <div className="Profile__updateStatus"></div>
                     <button disabled={!allowSubmit} type="submit"
                             className="Profile__button Profile__button_registration">Редактировать
                     </button>
