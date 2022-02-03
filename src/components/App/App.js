@@ -21,7 +21,6 @@ import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 
 import mainApi from "../../utils/MainApi";
-import {loadJSON, saveJSON} from "../../utils/functions"
 import {PAGE_TYPES} from "../../utils/Constants";
 
 function App() {

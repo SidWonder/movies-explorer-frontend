@@ -55,7 +55,6 @@ function SavedMovies({logout, removeMovieFromFav ,loggedIn, movies, getFavMovies
             <SearchForm
               searchInputQuery = {searchQuery}
               setSearchQuery={setSearchQuery}
-              searcher={searchMovie}
             />
             <FilterCheckbox
             type={"Короткометражки"}

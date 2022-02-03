@@ -14,7 +14,6 @@ function Profile({handleUpdateUserData, logout}) {
     const [initialEmail, setInitialEmail] = useState('')
 
     const [allowSubmit, setAllowSubmit] = useState(false);
-    const [updateStatus, setUpdateStatus] = useState(null);
 
 
     useEffect(()=>{
