@@ -1,6 +1,5 @@
 import React from "react";
 import "./Portfolio.css";
-import {Link} from "react-router-dom";
 
 function Portfolio() {
     return (
@@ -8,11 +7,11 @@ function Portfolio() {
           <h4 className="Portfolio__title">Портфолио</h4>
           <ul className="Portfolio__list">
               <li className="Portfolio__item">
-                  <Link className="Portfolio__link" to="#">Статичный сайт</Link></li>
+                  <a className="Portfolio__link" rel='noreferrer' target='_blank' href="https://sidwonder.github.io/how-to-learn/ ">Статичный сайт</a></li>
               <li className="Portfolio__item">
-                  <Link className="Portfolio__link" to="#">Адаптивный сайт</Link></li>
+                  <a className="Portfolio__link" rel='noreferrer' target='_blank' href="https://sidwonder.github.io/russian-travel/">Адаптивный сайт</a></li>
               <li className="Portfolio__item">
-                  <Link className="Portfolio__link" to="#">Одностраничное приложение</Link></li>
+                  <a className="Portfolio__link" rel='noreferrer' target='_blank' href="https://sidwonder.github.io/mesto/">Одностраничное приложение</a></li>
           </ul>
       </div>
     );

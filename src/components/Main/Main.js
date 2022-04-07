@@ -6,10 +6,10 @@ import Promo from "../Promo/Promo";
 import Techs from "../Techs/Techs";
 import Header from "../Header/Header";
 
-function Main() {
+function Main({loggedIn}) {
     return (
         <section className='Main'>
-            <Header pageType={'main'}/>
+            <Header pageType={'main'} loggedIn={loggedIn}/>
             <Promo />
             <NavTab />
             <AboutProject />

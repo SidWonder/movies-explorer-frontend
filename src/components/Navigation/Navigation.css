@@ -47,6 +47,8 @@
 }
 
 
+
+
 .Navigation__profile {
     background-color:  #202020;
 }
@@ -340,4 +342,10 @@ position: relative;
         padding-right: 43px;
     }
 
+}
+
+
+.Navigation__listItem_profile a {
+  font-size: 12px;
+  margin-left: 30px;
 }

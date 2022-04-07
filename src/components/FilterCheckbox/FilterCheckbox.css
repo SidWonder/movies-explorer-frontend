@@ -1,5 +1,6 @@
 .FilterCheckbox {
-    display: flex;
+    display: inline-flex;
+  align-self: center;
 }
 .FilterCheckbox__type {
     margin: 0;
